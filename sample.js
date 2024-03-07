@@ -3,35 +3,50 @@ AFRAME.registerComponent("pagehandler", {
   init: function () {
     console.log("pagehandler init...");
 
-    let marker = querySelector("a-nft"); // marker 物件
+    let nft = document.querySelector("a-nft"); // nft 物件
+    let nftFound = false;
 
-    marker.addEventListener(
-      "nftFound",
+    nft.addEventListener(
+      "markerFound",
       function () {
-        console.log("markerFound...");
+        console.log("nftFound...");
+        nftFound = true;
+        // 廣播事件，觸發動畫
         document.getElementById("geo-plane").emit("geo-plane-scaled");
       }.bind(this)
     );
 
-    marker.addEventListener(
-      "nftLost",
+    nft.addEventListener(
+      "markerLost",
       function () {
-        console.log("markerLost...");
+        console.log("nftLost...");
+        nftFound = false;
       }.bind(this)
     );
 
-    // 點按撥放後播放影片
-    let scene = document.querySelector("a-scene");
+    // 點按撥放後播放 / 暫停影片
     let video = document.getElementById("video");
-    let videoButton = document.getElementById("play-vedio");
-    console.log(video, scene);
+    let videoButton = document.getElementById("play-video");
     videoButton.addEventListener("click", () => {
-      if (scene.hasLoaded && video.paused) {
-        videoButton.innerText = "PAUSE";
+      if (nftFound && video.paused) {
+        videoButton.children[0].innerText = "pause";
         video.play();
-      } else if (scene.hasLoaded && !video.paused) {
-        videoButton.innerText = "PLAY";
+      } else if (nftFound && !video.paused) {
+        videoButton.children[0].innerText = "play";
         video.pause();
+      }
+    });
+
+    // 點按後靜音 / 開啟聲音
+    let soundButton = document.getElementById("video-sound");
+    soundButton.addEventListener("click", () => {
+      console.log(video.volume);
+      if (video.volume == 0) {
+        video.volume = 1;
+        soundButton.children[0].innerText = "sound-on";
+      } else {
+        video.volume = 0;
+        soundButton.children[0].innerText = "sound-off";
       }
     });
 

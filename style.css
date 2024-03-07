@@ -1,12 +1,17 @@
 body {
   margin: 0px;
-  overflow: hidden;
 }
 
 /* Loding 提醒的設定 */
 .arjs-loader {
   height: 100vh;
   width: 100%;
+  /* for marker base
+  height: auto;
+  width:auto;
+  position: absolute;
+  top: 50%;
+  right: 50%; */
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 5;
   display: flex;
@@ -52,11 +57,11 @@ body {
   top: 15%;
   left: 85%;
 }
-#vedio-sound {
+#video-sound {
   top: 23%;
   left: 85%;
 }
-#play-vedio {
+#play-video {
   top: 31%;
   left: 85%;
 }
