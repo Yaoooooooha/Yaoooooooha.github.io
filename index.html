@@ -11,9 +11,10 @@
     <title>AR Self-Driving Car Guided Tour</title>
     <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <script src="./sample.js"></script>
   </head>
 
-  <body">
+  <body>
     <!-- 載入中的提示 -->
     <div class="arjs-loader">
       <div>Loading, please wait...</div>
@@ -52,6 +53,15 @@
           gltf-model="url(https://Yaoooooooha.github.io/assets/brabus_g900_rocket_edition/scene.gltf)"
         ></a-entity>
         <a-box position="0 0.5 0" material="color: black;"></a-box>
+        <a-entity
+          id="geo-plane"
+          geometry="primitive: plane; width: 30; height: 90"
+          material="src: #video"
+          position="0 5 0"
+          rotation="-90 0 0"
+          　
+          animation="property: scale; from: 1 0 1; to: 1 1 1; dur: 500; loop: false; easing: linear; startEvents: geo-plane-scaled"
+        ></a-entity>
       </a-nft>
     </a-scene>
   </body>
