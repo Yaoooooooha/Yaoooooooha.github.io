@@ -3,50 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>網頁截圖</title>
-    <style>
-      #canvas {
-        display: none; /* 隱藏截圖後的canvas */
-      }
-    </style>
+    <title>AR.js 截圖</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.0.11/aframe/build/aframe-ar.js"></script>
   </head>
   <body>
-    <canvas id="canvas"></canvas>
-    <video id="video" autoplay></video>
+    <a-scene embedded arjs screenshot="width:1920; height:1080">
+      <a-marker preset="hiro">
+        <a-box position="0 0.5 0" material="color: red;"></a-box>
+      </a-marker>
+    </a-scene>
+
     <button id="take-screenshot">截圖</button>
 
     <script>
-      const video = document.getElementById("video");
-      const canvas = document.getElementById("canvas");
       const takeScreenshotButton = document.getElementById("take-screenshot");
-
-      // 啟動後置相機視訊流
-      navigator.mediaDevices
-        .getUserMedia({ video: { facingMode: "environment" } })
-        .then((stream) => {
-          video.srcObject = stream;
-        })
-        .catch((error) => {
-          console.error("無法訪問後置相機視訊流:", error);
-        });
 
       // 當用戶點擊截圖按鈕時
       takeScreenshotButton.addEventListener("click", () => {
-        const context = canvas.getContext("2d");
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-
-        // 在canvas中繪製視訊畫面
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-        // 將canvas轉換為圖片URL
-        const dataURL = canvas.toDataURL("image/png");
-
-        // 創建一個虛擬的下載鏈接，用於下載截圖
-        const link = document.createElement("a");
-        link.href = dataURL;
-        link.download = "screenshot.png";
-        link.click();
+        const scene = document.querySelector("a-scene");
+        scene.components.screenshot.capture("perspective");
       });
     </script>
   </body>
