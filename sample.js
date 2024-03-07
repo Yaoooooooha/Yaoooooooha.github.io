@@ -10,7 +10,6 @@ AFRAME.registerComponent("pageHandler", {
       function () {
         console.log("markerFound...");
         document.getElementById("geo-plane").emit("geo-plane-scaled");
-        document.getElementById("play-video").style.opacity = 0;
       }.bind(this)
     );
 
@@ -21,17 +20,16 @@ AFRAME.registerComponent("pageHandler", {
       }.bind(this)
     );
 
-    // When video button clicked
+    // 點按撥放後播放影片
     let scene = document.querySelector("a-scene");
     let video = document.getElementById("video");
-    let videoButton = document.getElementById("video-button");
+    let videoButton = document.getElementById("play-vedio");
     videoButton.addEventListener("click", () => {
       if (scene.hasLoaded && video.paused) {
-        //videoButton.classList.toggle("change");
-        document.getElementById("text-video").innerText = "PAUSE";
+        videoButton.innerText = "PAUSE";
         video.play();
       } else if (scene.hasLoaded && !video.paused) {
-        document.getElementById("text-video").innerText = "PLAY";
+        videoButton.innerText = "PLAY";
         video.pause();
       }
     });
