@@ -3,36 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AR.js拍照</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.0.11/aframe/build/aframe-ar.js"></script>
+    <title>網頁截圖</title>
+    <style>
+      #canvas {
+        display: none; /* 隱藏截圖後的canvas */
+      }
+    </style>
   </head>
   <body>
-    <a-scene embedded arjs>
-      <a-marker preset="hiro">
-        <a-entity camera></a-entity>
-      </a-marker>
-    </a-scene>
-
-    <button id="take-photo">拍照</button>
-    <input type="file" capture="environment" accept="image/*" />
+    <canvas id="canvas"></canvas>
+    <video id="video" autoplay></video>
+    <button id="take-screenshot">截圖</button>
 
     <script>
-      const takePhotoButton = document.getElementById("take-photo");
-      takePhotoButton.addEventListener("click", () => {
-        const canvas = document.querySelector("canvas");
-        const dataURL = canvas.toDataURL(); // 將canvas轉換為圖片URL
-        downloadImage(dataURL, "ar_photo.png"); // 下載圖片
-      });
+      const video = document.getElementById("video");
+      const canvas = document.getElementById("canvas");
+      const takeScreenshotButton = document.getElementById("take-screenshot");
 
-      function downloadImage(data, filename = "untitled.png") {
+      // 啟動視訊流
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then((stream) => {
+          video.srcObject = stream;
+        })
+        .catch((error) => {
+          console.error("無法訪問視訊流:", error);
+        });
+
+      // 當用戶點擊截圖按鈕時
+      takeScreenshotButton.addEventListener("click", () => {
+        const context = canvas.getContext("2d");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        // 在canvas中繪製視訊畫面
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // 將canvas轉換為圖片URL
+        const dataURL = canvas.toDataURL("image/png");
+
+        // 創建一個虛擬的下載鏈接，用於下載截圖
         const link = document.createElement("a");
-        link.href = data;
-        link.download = filename;
-        document.body.appendChild(link);
+        link.href = dataURL;
+        link.download = "screenshot.png";
         link.click();
-        document.body.removeChild(link);
-      }
+      });
     </script>
   </body>
 </html>
