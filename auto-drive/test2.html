@@ -2,50 +2,36 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Camera Capture and Save</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AR.js拍照</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.0.11/aframe/build/aframe-ar.js"></script>
   </head>
   <body>
-    <!-- Button to trigger camera capture -->
-    <button id="captureButton">Take Photo</button>
+    <a-scene embedded arjs>
+      <a-marker preset="hiro">
+        <a-entity camera></a-entity>
+      </a-marker>
+    </a-scene>
+
+    <button id="take-photo">拍照</button>
 
     <script>
-      document
-        .getElementById("captureButton")
-        .addEventListener("click", function () {
-          // 创建一个 input 元素用于拍照
-          var input = document.createElement("input");
-          input.type = "file";
-          input.accept = "image/*";
-          input.capture = "camera";
+      const takePhotoButton = document.getElementById("take-photo");
+      takePhotoButton.addEventListener("click", () => {
+        const canvas = document.querySelector("canvas");
+        const dataURL = canvas.toDataURL(); // 將canvas轉換為圖片URL
+        downloadImage(dataURL, "ar_photo.png"); // 下載圖片
+      });
 
-          // 监听 change 事件以获取拍摄后的图像
-          input.addEventListener("change", function (event) {
-            var file = event.target.files[0];
-            var reader = new FileReader();
-
-            reader.onload = function (event) {
-              // 创建一个新的图片元素来显示拍摄后的图像
-              var img = new Image();
-              img.src = event.target.result;
-
-              // 创建一个链接元素用于下载图像
-              var link = document.createElement("a");
-              link.href = event.target.result;
-              link.download = "photo.jpg";
-              link.innerHTML = "Download Photo";
-
-              // 将图片和下载链接添加到页面中
-              document.body.appendChild(img);
-              document.body.appendChild(link);
-            };
-
-            // 读取拍摄后的图像文件
-            reader.readAsDataURL(file);
-          });
-
-          // 模拟点击 input 元素以触发拍照
-          input.click();
-        });
+      function downloadImage(data, filename = "untitled.png") {
+        const link = document.createElement("a");
+        link.href = data;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
     </script>
   </body>
 </html>
