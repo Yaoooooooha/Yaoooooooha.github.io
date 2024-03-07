@@ -95,17 +95,5 @@
         <a-box color="red" depth="1" height="1" width="1"></a-box>
       </a-marker> -->
     </a-scene>
-
-    <button id="take-screenshot">截圖</button>
-
-    <script>
-      const takeScreenshotButton = document.getElementById("take-picture");
-
-      // 當用戶點擊截圖按鈕時
-      takeScreenshotButton.addEventListener("click", () => {
-        const scene = document.querySelector("a-scene");
-        scene.components.screenshot.capture("perspective");
-      });
-    </script>
   </body>
 </html>
