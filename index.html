@@ -35,7 +35,7 @@
 
     <a-scene
       vr-mode-ui="enabled: false;"
-      renderer="logarithmicDepthBuffer: true; precision: medium;"
+      renderer="antialias: true; alpha: true; precision: mediump;"
       embedded
       arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
     >
@@ -54,11 +54,12 @@
 
       <!-- 偵測的圖片 -->
       <a-nft
+        pagehandler
         type="nft"
         url="https://Yaoooooooha.github.io/assets/image/Hiro_marker_ARjs"
         smooth="true"
-        smoothCount="15"
-        smoothTolerance="0.5"
+        smoothCount="10"
+        smoothTolerance="0.01"
         smoothThreshold="5"
       >
         <!-- <a-entity
@@ -70,7 +71,6 @@
 
         <!-- 顯示導覽影片 -->
         <a-entity
-          pagehandler
           id="geo-plane"
           geometry="primitive: plane; width: 30; height: 90"
           material="src: #video"
