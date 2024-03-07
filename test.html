@@ -1,35 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <title>AR.js Image Tracking Sample</title>
+    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.7.5/aframe/build/aframe-ar.js"></script>
   </head>
 
   <body style="margin: 0px; overflow: hidden">
-    <a-scene
-      vr-mode-ui="enabled: false;"
-      renderer="logarithmicDepthBuffer: true; precision: medium;"
-      embedded
-      arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-    >
-      <a-nft
-        type="nft"
-        url="https://Yaoooooooha.github.io/assets/image/Hiro_marker_ARjs"
-        smooth="true"
-        smoothCount="10"
-        smoothTolerance=".01"
-        smoothThreshold="5"
-      >
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+      <a-marker type="pattern" url="assets/pattern-marker.patt">
         <a-entity
-          position="0 0.5 0"
+          position="0 -6 -12"
           rotation="-20 0 0"
-          gltf-model="url(https://Yaoooooooha.github.io/assets/brabus_g900_rocket_edition/scene.gltf)"
+          gltf-model="url(assets/scene.gltf)"
         ></a-entity>
-        <a-box position="0 0.5 0" material="color: black;"></a-box>
-      </a-nft>
+      </a-marker>
     </a-scene>
   </body>
 </html>

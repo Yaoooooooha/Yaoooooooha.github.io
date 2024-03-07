@@ -3,10 +3,10 @@ AFRAME.registerComponent("pagehandler", {
   init: function () {
     console.log("pagehandler init...");
 
-    let marker = this.el; // marker 物件
+    let marker = querySelector("a-nft"); // marker 物件
 
     marker.addEventListener(
-      "markerFound",
+      "nftFound",
       function () {
         console.log("markerFound...");
         document.getElementById("geo-plane").emit("geo-plane-scaled");
@@ -14,7 +14,7 @@ AFRAME.registerComponent("pagehandler", {
     );
 
     marker.addEventListener(
-      "markerLost",
+      "nftLost",
       function () {
         console.log("markerLost...");
       }.bind(this)
