@@ -20,14 +20,14 @@
       const canvas = document.getElementById("canvas");
       const takeScreenshotButton = document.getElementById("take-screenshot");
 
-      // 啟動視訊流
+      // 啟動後置相機視訊流
       navigator.mediaDevices
-        .getUserMedia({ video: true })
+        .getUserMedia({ video: { facingMode: "environment" } })
         .then((stream) => {
           video.srcObject = stream;
         })
         .catch((error) => {
-          console.error("無法訪問視訊流:", error);
+          console.error("無法訪問後置相機視訊流:", error);
         });
 
       // 當用戶點擊截圖按鈕時
