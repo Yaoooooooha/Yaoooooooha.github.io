@@ -3,6 +3,7 @@ body {
   overflow: hidden;
 }
 
+/* Loding 提醒的設定 */
 .arjs-loader {
   height: 100%;
   width: 100%;
@@ -20,39 +21,9 @@ body {
   z-index: 5;
 }
 
-#video-button {
-  transition: opacity 0.5s, visibility 1s;
-  opacity: 0.5;
-  visibility: visible;
-  position: absolute;
-  height: 10%;
-  width: 20%;
-  top: 90%;
-  left: 80%;
-  background-color: rgb(255, 255, 255);
-  z-index: 5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-}
-#video-button:hover {
-  opacity: 1;
-}
-#video-button.change {
-  opacity: 0;
-  visibility: hidden;
-}
-#video-button div {
-  text-align: center;
-  font-family: arial;
-  font-size: 1.25em;
-  color: black;
-  z-index: 5;
-}
-
+/* 控制按鈕的設定 */
 .control-button {
-  transition: opacity 0.5s;
+  transition: opacity 0.5s, visibility 1s;
   opacity: 0.5;
   visibility: visible;
   position: absolute;
@@ -77,22 +48,18 @@ body {
   align-items: center;
   z-index: 5;
 }
-
 #more-information {
   top: 15%;
   left: 85%;
 }
-
 #vedio-sound {
   top: 23%;
   left: 85%;
 }
-
 #play-vedio {
   top: 31%;
   left: 85%;
 }
-
 #take-picture {
   top: 90%;
   /* 置中 */
