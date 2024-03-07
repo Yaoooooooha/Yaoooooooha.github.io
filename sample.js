@@ -1,16 +1,16 @@
 // 設定 a-frame
-AFRAME.registerComponent("samplehandler", {
+AFRAME.registerComponent("pageHandler", {
   init: function () {
-    console.log("samplehandler init...");
+    console.log("pageHandler init...");
 
-    let marker = this.el;
-    //let marker = this.el.sceneEl;
+    let marker = this.el; // marker 物件
 
     marker.addEventListener(
       "markerFound",
       function () {
         console.log("markerFound...");
         document.getElementById("geo-plane").emit("geo-plane-scaled");
+        document.getElementById("play-video").style.opacity = 0;
       }.bind(this)
     );
 
@@ -82,6 +82,7 @@ AFRAME.registerComponent("samplehandler", {
   },
 });
 
+// 頁面載入完成後觸發
 window.onload = function () {
   console.log("window loaded...");
 
