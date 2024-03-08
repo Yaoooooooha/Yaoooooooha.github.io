@@ -1,138 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- 用戶不能調整大小 -->
-    <meta
-      charset="UTF-8"
-      name="viewport"
-      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1"
-    />
-    <link rel="stylesheet" href="./style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AR Self-Driving Car Guided Tour</title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-    <!-- for marker base (need to comment out "aframe-ar-nft.js")
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script> -->
-    <script src="./sample.js"></script>
   </head>
-
   <body>
-    <video id="video" autoplay></video>
-    <!-- 載入中的提示 -->
-    <!-- <div class="arjs-loader">
-      <div>Loading, please wait...</div>
-    </div> -->
-    <!-- 互動按鈕 -->
-    <div class="control-button" id="play-video">
-      <div>play</div>
-    </div>
-    <div class="control-button" id="video-sound">
-      <div>sound on</div>
-    </div>
-    <div class="control-button" id="more-information">
-      <div>info</div>
-    </div>
-    <div class="control-button" id="take-picture">
-      <div>take picture</div>
-    </div>
-
-    <a-scene
-      vr-mode-ui="enabled: false;"
-      renderer="antialias: true; alpha: true; precision: mediump;"
-      embedded
-      arjs="trackingMethod: best; sourceType: video; debugUIEnabled: false;"
-    >
-      <!-- for marker base 
-    <a-scene
-    vr-mode-ui="enabled: false;"
-    embedded
-    arjs="sourceType: webcam; debugUIEnabled: false;"
-    >  -->
-
-      <a-video src="#userMediaStream" width="16" height="9"></a-video>
-
-      <!-- 影片檔案 -->
-      <a-assets>
-        <video
-          id="video"
-          src="https://Yaoooooooha.github.io/auto-drive/assets/your_video.mp4"
-          autoplay="false"
-          preload="auto"
-          loop="true"
-          webkit-playsinline
-          playsinline
-        ></video>
-      </a-assets>
-
-      <!-- 偵測的圖片 -->
-      <a-nft
-        pagehandler
-        type="nft"
-        url="https://Yaoooooooha.github.io/auto-drive/assets/image/Hiro_marker_ARjs"
-        smooth="true"
-        smoothCount="10"
-        smoothTolerance="0.01"
-        smoothThreshold="5"
-      >
-        <!-- 顯示導覽影片 -->
-        <a-entity
-          id="geo-plane"
-          geometry="primitive: plane; width: 90; height: 90"
-          material="src: #video"
-          position="0 0 0"
-          rotation="-90 0 0"
-          animation="property: scale; from: 1 0 1; to: 1 1 1; dur: 500; loop: false; easing: linear; startEvents: geo-plane-scaled"
-        ></a-entity>
-      </a-nft>
-
-      <!-- for marker base
-      <a-marker type="pattern" url="https://Yaoooooooha.github.io/auto-drive/assets/pattern-marker.patt">
-        <a-entity
-          id="geo-plane"
-          geometry="primitive: plane; width: 2; height: 2"
-          material="src: #video"
-          position="0 -3 0"
-          rotation="-90 0 0"
-          animation="property: scale; from: 1 0 1; to: 1 1 1; dur: 500; loop: false; easing: linear; startEvents: geo-plane-scaled"
-        ></a-entity>
-        <a-box color="red" depth="1" height="1" width="1"></a-box>
-      </a-marker> -->
+    <a-scene>
+      <!-- 在此添加您的 AR 或 VR 內容 -->
     </a-scene>
 
+    <!-- 截圖按鈕 -->
+    <button id="screenshotButton">截圖</button>
+
     <script>
-      const video = document.getElementById("video");
-      const takeScreenshotButton = document.getElementById("take-picture");
+      const scene = document.querySelector("a-scene");
+      const screenshotButton = document.getElementById("screenshotButton");
 
-      // 啟動視訊流
-      navigator.mediaDevices
-        .getUserMedia({ video: { facingMode: "environment" } })
-        .then((stream) => {
-          video.srcObject = stream;
-          video.play();
-          video.id = "userMediaStream";
-          document.body.appendChild(video);
-        })
-        .catch((error) => {
-          console.error("無法訪問視訊流:", error);
-        });
+      screenshotButton.addEventListener("click", () => {
+        // 創建一個新的 <canvas> 元素
+        const canvas = document.createElement("canvas");
+        // 獲取 WebGLRenderer
+        const renderer = new THREE.WebGLRenderer({ canvas });
+        // 設置渲染器的大小為場景的大小
+        renderer.setSize(window.innerWidth, window.innerHeight);
 
-      // 當用戶點擊截圖按鈕時
-      takeScreenshotButton.addEventListener("click", () => {
-        const scene = document.querySelector("a-scene");
-        const canvas = scene.components.screenshot.getCanvas("equirectangular");
+        // 渲染場景到 <canvas> 中
+        renderer.render(scene.object3D, scene.camera);
 
-        // 在canvas中繪製視訊畫面
-        const context = canvas.getContext("2d");
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-        // 將canvas轉換為圖片URL
+        // 獲取圖片的數據 URL
         const dataURL = canvas.toDataURL("image/png");
 
-        // 創建一個虛擬的下載鏈接，用於下載截圖
-        const link = document.createElement("a");
-        link.href = dataURL;
-        link.download = "screenshot.png";
-        link.click();
+        // 創建一個下載鏈接並觸發點擊事件下載圖片
+        const downloadLink = document.createElement("a");
+        downloadLink.download = "screenshot.png";
+        downloadLink.href = dataURL;
+        downloadLink.click();
       });
     </script>
   </body>

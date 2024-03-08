@@ -14,19 +14,13 @@
     <!-- for marker base (need to comment out "aframe-ar-nft.js")
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script> -->
     <script src="./sample.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
-      integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
   </head>
 
   <body>
     <!-- 載入中的提示 -->
-    <!-- <div class="arjs-loader">
+    <div class="arjs-loader">
       <div>Loading, please wait...</div>
-    </div> -->
+    </div>
     <!-- 互動按鈕 -->
     <div class="control-button" id="play-video">
       <div>play</div>
@@ -53,19 +47,6 @@
     embedded
     arjs="sourceType: webcam; debugUIEnabled: false;"
     >  -->
-
-      <!-- 影片檔案 -->
-      <a-assets>
-        <video
-          id="video"
-          src="https://Yaoooooooha.github.io/auto-drive/assets/your_video.mp4"
-          autoplay="false"
-          preload="auto"
-          loop="true"
-          webkit-playsinline
-          playsinline
-        ></video>
-      </a-assets>
 
       <!-- 偵測的圖片 -->
       <a-nft
@@ -100,28 +81,186 @@
         ></a-entity>
         <a-box color="red" depth="1" height="1" width="1"></a-box>
       </a-marker> -->
+
+      <!-- 影片檔案 -->
+      <a-assets>
+        <video
+          id="video"
+          src="https://Yaoooooooha.github.io/auto-drive/assets/your_video.mp4"
+          autoplay="false"
+          preload="auto"
+          loop="true"
+          webkit-playsinline
+          playsinline
+        ></video>
+      </a-assets>
     </a-scene>
     <script>
-      const screenshotTarget = document.body;
-      const captureButton = document.getElementById("take-picture");
+      function resizeCanvas(origCanvas, width, height) {
+        let resizedCanvas = document.createElement("canvas");
+        let resizedContext = resizedCanvas.getContext("2d");
 
-      captureButton.addEventListener("click", () => {
-        html2canvas(screenshotTarget).then((canvas) => {
-          // 將圖像轉換為 base64 字符串
-          const base64image = canvas.toDataURL("image/png");
+        resizedCanvas.height = height;
+        resizedCanvas.width = width;
 
-          // 創建一個虛擬 a 元素
-          const link = document.createElement("a");
-          link.href = base64image;
-          link.download = "screenshot.png"; // 下載的文件名
+        resizedContext.drawImage(origCanvas, 0, 0, width, height);
+        return resizedCanvas.toDataURL();
+      }
 
-          // 將 a 元素附加到 DOM 中
+      function captureVideoFrame(video, format, width, height) {
+        if (typeof video === "string") {
+          video = document.querySelector(video);
+        }
+
+        format = format || "jpeg";
+
+        if (!video || (format !== "png" && format !== "jpeg")) {
+          return false;
+        }
+
+        var canvas = document.createElement("CANVAS");
+
+        canvas.width = width || video.videoWidth;
+        canvas.height = height || video.videoHeight;
+        canvas.getContext("2d").drawImage(video, 0, 0);
+        var dataUri = canvas.toDataURL("image/" + format);
+        var data = dataUri.split(",")[1];
+        var mimeType = dataUri.split(";")[0].slice(5);
+
+        var bytes = window.atob(data);
+        var buf = new ArrayBuffer(bytes.length);
+        var arr = new Uint8Array(buf);
+
+        for (var i = 0; i < bytes.length; i++) {
+          arr[i] = bytes.charCodeAt(i);
+        }
+
+        var blob = new Blob([arr], { type: mimeType });
+        return {
+          blob: blob,
+          dataUri: dataUri,
+          format: format,
+          width: canvas.width,
+          height: canvas.height,
+        };
+      }
+
+      var defaultOptions = {
+        format: "image/png",
+        quality: 0.92,
+        width: undefined,
+        height: undefined,
+        Canvas: undefined,
+        crossOrigin: undefined,
+      };
+
+      var mergeImages = function (sources, options) {
+        if (sources === void 0) sources = [];
+        if (options === void 0) options = {};
+
+        return new Promise(function (resolve) {
+          options = Object.assign({}, defaultOptions, options);
+
+          // Setup browser/Node.js specific variables
+          var canvas = options.Canvas
+            ? new options.Canvas()
+            : window.document.createElement("canvas");
+          var Image = options.Image || window.Image;
+
+          // Load sources
+          var images = sources.map(function (source) {
+            return new Promise(function (resolve, reject) {
+              // Convert sources to objects
+              if (source.constructor.name !== "Object") {
+                source = { src: source };
+              }
+
+              // Resolve source and img when loaded
+              var img = new Image();
+              img.crossOrigin = options.crossOrigin;
+              img.onerror = function () {
+                return reject(new Error("Couldn't load image"));
+              };
+              img.onload = function () {
+                return resolve(Object.assign({}, source, { img: img }));
+              };
+              img.src = source.src;
+            });
+          });
+
+          // Get canvas context
+          var ctx = canvas.getContext("2d");
+
+          // When sources have loaded
+          resolve(
+            Promise.all(images).then(function (images) {
+              // Set canvas dimensions
+              var getSize = function (dim) {
+                return (
+                  options[dim] ||
+                  Math.max.apply(
+                    Math,
+                    images.map(function (image) {
+                      return image.img[dim];
+                    })
+                  )
+                );
+              };
+              canvas.width = getSize("width");
+              canvas.height = getSize("height");
+
+              // Draw images to canvas
+              images.forEach(function (image) {
+                ctx.globalAlpha = image.opacity ? image.opacity : 1;
+                return ctx.drawImage(image.img, image.x || 0, image.y || 0);
+              });
+
+              if (options.Canvas && options.format === "image/jpeg") {
+                // Resolve data URI for node-canvas jpeg async
+                return new Promise(function (resolve, reject) {
+                  canvas.toDataURL(
+                    options.format,
+                    {
+                      quality: options.quality,
+                      progressive: false,
+                    },
+                    function (err, jpeg) {
+                      if (err) {
+                        reject(err);
+                        return;
+                      }
+                      resolve(jpeg);
+                    }
+                  );
+                });
+              }
+
+              // Resolve all other data URIs sync
+              return canvas.toDataURL(options.format, options.quality);
+            })
+          );
+        });
+      };
+
+      let screenshotBtn = document.getElementById("take-picture");
+      console.log(screenshotBtn);
+      screenshotBtn.addEventListener("click", function () {
+        console.log(1234);
+        let aScene = document
+          .querySelector("a-scene")
+          .components.screenshot.getCanvas("perspective");
+        let frame = captureVideoFrame("video", "png");
+        aScene = resizeCanvas(aScene, frame.width, frame.height);
+        frame = frame.dataUri;
+        mergeImages([frame, aScene]).then((b64) => {
+          let link = document.createElement("a");
+          link.setAttribute("download", "AR.png");
+          link.setAttribute("href", b64);
+          // 将临时元素添加到文档中
           document.body.appendChild(link);
-
-          // 模擬點擊以觸發下載
+          // 模拟点击下载链接
           link.click();
-
-          // 移除虛擬 a 元素
+          // 移除临时元素
           document.body.removeChild(link);
         });
       });
