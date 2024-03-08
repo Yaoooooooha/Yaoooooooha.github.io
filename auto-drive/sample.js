@@ -2,7 +2,6 @@
 AFRAME.registerComponent("pagehandler", {
   init: function () {
     let marker = document.querySelector("a-marker"); // marker 物件
-    console.log(marker);
     let markerFound = false;
 
     marker.addEventListener(
@@ -37,28 +36,16 @@ AFRAME.registerComponent("pagehandler", {
       }
     });
 
-    let audio = document.getElementById("video");
-    let audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    let gainNode = audioContext.createGain();
-
-    // 将音频元素连接到音频上下文
-    let source = audioContext.createMediaElementSource(audio);
-    source.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-
     // 點按後靜音 / 開啟聲音
     let soundButton = document.getElementById("video-sound");
     soundButton.addEventListener("click", () => {
-      console.log(video.volume, gainNode.gain.value);
-      if (video.volume == 0) {
-        video.volume = 1;
-        gainNode.gain.value = 1;
+      console.log(video.volume);
+      if (video.muted) {
         soundButton.children[0].innerText = "sound-on";
       } else {
-        video.volume = 0;
-        gainNode.gain.value = 0;
         soundButton.children[0].innerText = "sound-off";
       }
+      video.muted = !video.muted;
     });
   },
 });

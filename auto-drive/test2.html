@@ -106,6 +106,7 @@
     </a-scene>
     <script>
       // 調整 canvas 大小
+
       function resizeCanvas(origCanvas, width, height) {
         let resizedCanvas = document.createElement("canvas");
         let resizedContext = resizedCanvas.getContext("2d");
@@ -118,17 +119,7 @@
           resizedContext.drawImage(origCanvas, 0, 0, width, height);
         } else {
           // Portrait
-          var scale = height / width;
-          var scaledHeight = origCanvas.width * scale;
-          var scaledWidth = origCanvas.height * scale;
-          var marginLeft = (origCanvas.width - scaledWidth) / 2;
-          resizedContext.drawImage(
-            origCanvas,
-            marginLeft,
-            0,
-            scaledWidth,
-            scaledHeight
-          );
+          resizedContext.drawImage(origCanvas, 0, 0, height, width);
         }
 
         return resizedCanvas.toDataURL();
