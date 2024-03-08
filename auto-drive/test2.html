@@ -71,8 +71,13 @@
 
       <!-- 偵測的圖片 -->
       <a-marker
+        pagehandler
         type="pattern"
         url="https://Yaoooooooha.github.io/auto-drive/assets/pattern-marker.patt"
+        smooth="true"
+        smoothCount="5"
+        smoothTolerance="0.01"
+        smoothThreshold="2"
       >
         <!-- 顯示導覽影片 -->
         <a-entity
