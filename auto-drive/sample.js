@@ -96,14 +96,14 @@ AFRAME.registerComponent("pagehandler", {
   },
 });
 
-// 頁面載入完成後觸發
-window.onload = function () {
-  console.log("window loaded...");
+// // 頁面載入完成後觸發
+// window.onload = function () {
+//   console.log("window loaded...");
 
-  // 關閉 Loading 的提醒
-  document.onselectstart = function () {
-    return false;
-  };
-  text = document.querySelector(".arjs-loader");
-  setTimeout(() => (text.style.opacity = 0), 500);
-};
+//   // 關閉 Loading 的提醒
+//   document.onselectstart = function () {
+//     return false;
+//   };
+//   text = document.querySelector(".arjs-loader");
+//   setTimeout(() => (text.style.opacity = 0), 500);
+// };
