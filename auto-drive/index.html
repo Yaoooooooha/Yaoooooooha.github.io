@@ -110,6 +110,7 @@
       function captureVideoFrame(video, format, width, height) {
         if (typeof video === "string") {
           video = document.querySelector(video);
+          console.log(video);
         }
 
         format = format || "jpeg";
@@ -243,13 +244,11 @@
       };
 
       let screenshotBtn = document.getElementById("take-picture");
-      console.log(screenshotBtn);
       screenshotBtn.addEventListener("click", function () {
-        console.log(1234);
         let aScene = document
           .querySelector("a-scene")
           .components.screenshot.getCanvas("perspective");
-        let frame = captureVideoFrame("video", "png");
+        let frame = captureVideoFrame("#arjs-video", "png");
         aScene = resizeCanvas(aScene, frame.width, frame.height);
         frame = frame.dataUri;
         mergeImages([frame, aScene]).then((b64) => {
