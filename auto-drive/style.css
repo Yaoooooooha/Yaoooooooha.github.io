@@ -64,6 +64,16 @@ body {
   top: 33%;
   left: 81%;
 }
+#previous-page {
+  top: 90%;
+  left: 15%;
+  transform: translate(-50%, 0);
+}
+#next-page {
+  top: 90%;
+  left: 85%;
+  transform: translate(-50%, 0);
+}
 #take-picture {
   top: 90%;
   /* 置中 */

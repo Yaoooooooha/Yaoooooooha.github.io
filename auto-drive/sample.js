@@ -1,7 +1,7 @@
 // 設定 a-frame
 AFRAME.registerComponent("pagehandler", {
   init: function () {
-    let marker = document.querySelector("a-marker"); // marker 物件
+    let marker = this.el; // marker 物件
     let markerFound = false;
 
     marker.addEventListener(
@@ -9,8 +9,10 @@ AFRAME.registerComponent("pagehandler", {
       function () {
         console.log("markerFound...");
         markerFound = true;
+        // 顯示影片模型
+        // document.getElementById("geo-plane").setAttribute("visible", "true");
         // 廣播事件，觸發動畫
-        document.getElementById("geo-plane").emit("geo-plane-scaled");
+        // document.getElementById("geo-plane").emit("geo-plane-scaled");
       }.bind(this)
     );
 
@@ -19,6 +21,10 @@ AFRAME.registerComponent("pagehandler", {
       function () {
         console.log("markerLost...");
         markerFound = false;
+        // 隱藏影片模型，避免卡在畫面上
+        // document.getElementById("geo-plane").setAttribute("visible", "false");
+        // 暫停影片
+        videoButton.children[0].innerHTML = '<i class="fa-solid fa-pause"></i>';
         video.pause();
       }.bind(this)
     );
