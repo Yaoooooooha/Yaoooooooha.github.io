@@ -1,0 +1,84 @@
+.home-page {
+  position: relative;
+}
+.home-page .home-container {
+  height: 80vh;
+  width: 100%;
+  position: relative;
+  z-index: 0;
+}
+.home-page .home-container .home-banner {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+.home-page .home-container .home-banner .home-main {
+  width: 100%;
+  max-width: 550px;
+}
+.home-page .home-container .home-banner .btn {
+  width: 50%;
+  max-width: 400px;
+}
+.home-page .home-container .home-banner .btn .home-btn {
+  margin: 15px auto 0 auto;
+}
+.home-page .home-container .home-banner .btn .home-btn img {
+  padding: 0.5rem 0;
+  width: 100%;
+}
+
+.instruction-page {
+  position: relative;
+}
+.instruction-page button {
+  background-color: inherit;
+  position: fixed;
+  z-index: 3;
+  left: 1vw;
+  top: 1vh;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.instruction-page button img {
+  height: 5vh;
+}
+.instruction-page .instruction-container {
+  height: 80vh;
+  width: 100%;
+  position: relative;
+  z-index: 0;
+}
+.instruction-page .instruction-container .instruction-banner {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+.instruction-page .instruction-container .instruction-banner .instruction-main {
+  width: 80%;
+  max-width: 600px;
+  padding: 0 2rem;
+}
+.instruction-page .instruction-container .instruction-banner .btn {
+  width: 50%;
+  max-width: 400px;
+}
+.instruction-page .instruction-container .instruction-banner .btn .instruction-btn {
+  margin: 15px auto 0 auto;
+}
+.instruction-page .instruction-container .instruction-banner .btn .instruction-btn img {
+  padding: 0.5rem 0;
+  width: 100%;
+}/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,97 @@
+.home-page {
+  position: relative;
+  .home-container {
+    height: 80vh;
+    width: 100%;
+    position: relative;
+    z-index: 0;
+
+    .home-banner {
+      height: 100%;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+
+      .home-main {
+        width: 100%;
+        max-width: 550px;
+      }
+
+      .btn {
+        width: 50%;
+        max-width: 400px;
+
+        .home-btn {
+          margin: 15px auto 0 auto;
+
+          img {
+            padding: 0.5rem 0;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.instruction-page {
+  position: relative;
+
+  button {
+    background-color: inherit;
+    position: fixed;
+    z-index: 3;
+    left: 1vw;
+    top: 1vh;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
+    img {
+      height: 5vh;
+    }
+  }
+
+  .instruction-container {
+    height: 80vh;
+    width: 100%;
+    position: relative;
+    z-index: 0;
+
+    .instruction-banner {
+      height: 100%;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+
+      .instruction-main {
+        width: 80%;
+        max-width: 600px;
+        padding: 0 2rem;
+      }
+
+      .btn {
+        width: 50%;
+        max-width: 400px;
+
+        .instruction-btn {
+          margin: 15px auto 0 auto;
+
+          img {
+            padding: 0.5rem 0;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,30 +1,37 @@
-// import './css/main.scss';
+import "./css/main.css";
 
 import { Link } from "react-router-dom";
 
-// import FooterComponent from '../components/Footer/main';
-// import HomeButton from './../assets/images/home/btn.png';
-// import HomeText from './../assets/images/home/text.png';
-// import HomeLogo from './../assets/images/logo.png';
+import HeaderComponent from "../components/header/main";
+import HomeMain from "./../assets/images/home/main.png";
+import EnglishBtn from "./../assets/images/home/btn-en.png";
+import ChineseBtn from "./../assets/images/home/btn-ch.png";
 
 const Home = () => {
-  // const enter = () => {
-  //   window.gtag('event', 'home_btn', { 'event_category': 'page_view', 'event_label': 'home btn count', 'value': 1 });
-  // }
   return (
     <>
-      {/* <div className="home-bg home-page">
+      <HeaderComponent></HeaderComponent>
+      <div className="home-bg home-page">
         <div className="home-container">
           <div className="home-banner">
-            <img src={HomeLogo} className="home-logo" alt="" />
-            <img src={HomeText} className="home-text" alt="" />
-            <Link onClick={ enter } to="/Home" className="home-btn">
-              <img src={HomeButton} alt="" />
-            </Link>
+            <img src={HomeMain} className="home-main" alt="" />
+            <div className="btn">
+              <Link
+                to={{ pathname: "/Instruction", search: `ln=en` }}
+                className="home-btn"
+              >
+                <img src={EnglishBtn} alt="" />
+              </Link>
+              <Link
+                to={{ pathname: "/Instruction", search: `ln=ch` }}
+                className="home-btn"
+              >
+                <img src={ChineseBtn} alt="" />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-      <FooterComponent></FooterComponent> */}
     </>
   );
 };

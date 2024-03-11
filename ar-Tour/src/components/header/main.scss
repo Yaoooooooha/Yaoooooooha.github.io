@@ -1,0 +1,21 @@
+.background {
+  position: fixed;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.header-top {
+  box-sizing: border-box;
+  width: 100%;
+  z-index: 3;
+}
+
+.header-logo {
+  display: flex;
+  justify-content: center;
+
+  img {
+    height: 20vh;
+  }
+}

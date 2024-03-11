@@ -5,7 +5,9 @@ import { Route, Routes } from "react-router-dom";
 
 import Ori from "./assets/images/ori.png";
 // import Preload from './components/preload.js';
+
 import Home from "./pages/home.jsx";
+import Instruction from "./pages/instruction.jsx";
 
 function App() {
   const orientation = useOrientation();
@@ -15,8 +17,12 @@ function App() {
       <div className="main-container">
         <Routes>
           <Route path="/" exact element={<Home></Home>} />
-          {/* <Route path="/Home" exact element={<Menu></Menu>} />
-            <Route path="/MemoryUniverse" exact element={<MemoryUniverse></MemoryUniverse>} />
+          <Route
+            path="/Instruction"
+            exact
+            element={<Instruction></Instruction>}
+          />
+          {/* <Route path="/MemoryUniverse" exact element={<MemoryUniverse></MemoryUniverse>} />
             <Route path="/MemoryUniverseResult" exact element={<MemoryUniverseResult></MemoryUniverseResult>} />
             <Route path="/DreamLamp" exact element={<DreamLamp></DreamLamp>} />
             <Route path="/DreamLampResult" exact element={<DreamLampResult></DreamLampResult>} /> */}
