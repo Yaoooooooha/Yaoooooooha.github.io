@@ -28,10 +28,10 @@ AFRAME.registerComponent("pagehandler", {
     let videoButton = document.getElementById("play-video");
     videoButton.addEventListener("click", () => {
       if (markerFound && video.paused) {
-        videoButton.children[0].innerText = "pause";
+        videoButton.children[0].innerHTML = '<i class="fa-solid fa-pause"></i>';
         video.play();
       } else if (markerFound && !video.paused) {
-        videoButton.children[0].innerText = "play";
+        videoButton.children[0].innerHTML = '<i class="fa-solid fa-play"></i>';
         video.pause();
       }
     });
@@ -41,9 +41,10 @@ AFRAME.registerComponent("pagehandler", {
     soundButton.addEventListener("click", () => {
       console.log(video.volume);
       if (video.muted) {
-        soundButton.children[0].innerText = "sound-on";
+        soundButton.children[0].innerHTML = '<i class="fas fa-volume-up"></i>';
       } else {
-        soundButton.children[0].innerText = "sound-off";
+        soundButton.children[0].innerHTML =
+          '<i class="fa-solid fa-volume-xmark"></i>';
       }
       video.muted = !video.muted;
     });
