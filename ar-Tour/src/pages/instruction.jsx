@@ -30,10 +30,7 @@ const Instruction = () => {
               <img src={InstructionMain} className="instruction-main" alt="" />
               <div className="btn">
                 {/* 跳轉到做好的 html 檔案 */}
-                <Link
-                  to="https://Yaoooooooha.github.io/auto-drive/index.html"
-                  className="instruction-btn"
-                >
+                <Link to="/AR-Mode" className="instruction-btn">
                   <img src={ConfirmBtnCH} alt="" />
                 </Link>
               </div>

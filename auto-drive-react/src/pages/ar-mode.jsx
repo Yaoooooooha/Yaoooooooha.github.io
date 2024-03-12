@@ -1,13 +1,18 @@
 import React from "react";
 
 const ARScene = () => {
+  const deviceHeight = window.innerHeight;
+  const deviceWidth = window.innerWidth;
+
   return (
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-      <a-marker preset="hiro">
-        <a-box position="0 0.5 0" material="color: red;"></a-box>
-      </a-marker>
-      <a-entity camera></a-entity>
-    </a-scene>
+    <>
+      <iframe
+        src="/ar-mode.html"
+        title="Your HTML Page"
+        width={deviceWidth}
+        height={deviceHeight}
+      ></iframe>
+    </>
   );
 };
 
