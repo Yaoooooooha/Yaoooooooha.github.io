@@ -52,18 +52,6 @@ body {
   align-items: center;
   z-index: 5;
 }
-#more-information {
-  top: 15%;
-  left: 81%;
-}
-#video-sound {
-  top: 24%;
-  left: 81%;
-}
-#play-video {
-  top: 33%;
-  left: 81%;
-}
 #previous-page {
   top: 90%;
   left: 15%;

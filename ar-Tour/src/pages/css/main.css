@@ -1,3 +1,8 @@
+@charset "UTF-8";
+html {
+  height: 100vh;
+}
+
 .home-page {
   position: relative;
 }
@@ -81,4 +86,50 @@
 .instruction-page .instruction-container .instruction-banner .btn .instruction-btn img {
   padding: 0.5rem 0;
   width: 100%;
+}
+
+.ar-page {
+  position: relative;
+}
+.ar-page .ar-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  z-index: 0;
+}
+.ar-page .ar-container iframe {
+  position: absolute;
+  left: 0;
+}
+.ar-page .ar-container .ar-control-btn {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  /* 控制按鈕的設定 */
+}
+.ar-page .ar-container .ar-control-btn .control-button {
+  transition: opacity 0.5s, visibility 1s;
+  opacity: 0.5;
+  visibility: visible;
+  background-color: rgb(255, 255, 255);
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.ar-page .ar-container .ar-control-btn .control-button:hover {
+  opacity: 1;
+}
+.ar-page .ar-container .ar-control-btn .control-button div {
+  height: 3rem;
+  width: 3rem;
+  text-align: center;
+  font-family: arial;
+  font-size: 1.25em;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
 }/*# sourceMappingURL=main.css.map */

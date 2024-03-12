@@ -2,7 +2,7 @@
 AFRAME.registerComponent("pagehandler", {
   init: function () {
     let marker = this.el; // marker 物件
-    let markerFound = false;
+    // let markerFound = false;
     let videoEntity = document.getElementById("geo-plane");
     let textEntity = document.getElementById("introduction");
     let textIndex = 0; // 用來記錄目前所顯示的文字
@@ -46,35 +46,35 @@ AFRAME.registerComponent("pagehandler", {
         // 調整左右按鍵
         nextPreBtnDisplay();
         // 暫停影片
-        videoButton.children[0].innerHTML = '<i class="fa-solid fa-play"></i>';
-        video.pause();
+        //   videoButton.children[0].innerHTML = '<i class="fa-solid fa-play"></i>';
+        //   video.pause();
       }.bind(this)
     );
 
     // 點按撥放後播放 / 暫停影片
-    let video = document.getElementById("video");
-    let videoButton = document.getElementById("play-video");
-    videoButton.addEventListener("click", () => {
-      if (markerFound && video.paused) {
-        videoButton.children[0].innerHTML = '<i class="fa-solid fa-pause"></i>';
-        video.play();
-      } else if (markerFound && !video.paused) {
-        videoButton.children[0].innerHTML = '<i class="fa-solid fa-play"></i>';
-        video.pause();
-      }
-    });
+    // let video = document.getElementById("video");
+    // let videoButton = document.getElementById("play-video");
+    // videoButton.addEventListener("click", () => {
+    //   if (markerFound && video.paused) {
+    //     videoButton.children[0].innerHTML = '<i class="fa-solid fa-pause"></i>';
+    //     video.play();
+    //   } else if (markerFound && !video.paused) {
+    //     videoButton.children[0].innerHTML = '<i class="fa-solid fa-play"></i>';
+    //     video.pause();
+    //   }
+    // });
 
     // 點按後靜音 / 開啟聲音
-    let soundButton = document.getElementById("video-sound");
-    soundButton.addEventListener("click", () => {
-      if (video.muted) {
-        soundButton.children[0].innerHTML = '<i class="fas fa-volume-up"></i>';
-      } else {
-        soundButton.children[0].innerHTML =
-          '<i class="fa-solid fa-volume-xmark"></i>';
-      }
-      video.muted = !video.muted;
-    });
+    // let soundButton = document.getElementById("video-sound");
+    // soundButton.addEventListener("click", () => {
+    //   if (video.muted) {
+    //     soundButton.children[0].innerHTML = '<i class="fas fa-volume-up"></i>';
+    //   } else {
+    //     soundButton.children[0].innerHTML =
+    //       '<i class="fa-solid fa-volume-xmark"></i>';
+    //   }
+    //   video.muted = !video.muted;
+    // });
 
     // index 跟 text 的對照表
     let index2Text = {
