@@ -134,6 +134,6 @@ window.onload = function () {
   document.onselectstart = function () {
     return false;
   };
-  text = document.querySelector(".arjs-loader");
+  let text = document.querySelector(".arjs-loader");
   setTimeout(() => (text.style.opacity = 0), 500);
 };
