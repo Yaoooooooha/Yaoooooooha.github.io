@@ -68,11 +68,13 @@ body {
   top: 90%;
   left: 15%;
   transform: translate(-50%, 0);
+  display: none;
 }
 #next-page {
   top: 90%;
   left: 85%;
   transform: translate(-50%, 0);
+  display: none;
 }
 #take-picture {
   top: 90%;

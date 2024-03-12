@@ -5,12 +5,33 @@ AFRAME.registerComponent("pagehandler", {
     let markerFound = false;
     let videoEntity = document.getElementById("geo-plane");
     let textEntity = document.getElementById("introduction");
+    let textIndex = 0; // 用來記錄目前所顯示的文字
+    let preButton = document.getElementById("previous-page");
+    let nextButton = document.getElementById("next-page");
+
+    function nextPreBtnDisplay() {
+      if (markerFound) {
+        // 在第一頁不顯示左按鍵
+        if (textIndex !== 0) {
+          preButton.style.display = "block";
+        } else {
+          preButton.style.display = "none";
+        }
+        nextButton.style.display = "block";
+      } else {
+        // 隱藏左右按鍵
+        nextButton.style.display = "none";
+        preButton.style.display = "none";
+      }
+    }
 
     marker.addEventListener(
       "markerFound",
       function () {
         console.log("markerFound...");
         markerFound = true;
+        // 調整左右按鍵
+        nextPreBtnDisplay();
         // 廣播事件，觸發動畫
         videoEntity.emit("geo-plane-scaled");
         textEntity.emit("introduction-scaled");
@@ -22,6 +43,8 @@ AFRAME.registerComponent("pagehandler", {
       function () {
         console.log("markerLost...");
         markerFound = false;
+        // 調整左右按鍵
+        nextPreBtnDisplay();
         // 暫停影片
         videoButton.children[0].innerHTML = '<i class="fa-solid fa-play"></i>';
         video.pause();
@@ -67,8 +90,6 @@ AFRAME.registerComponent("pagehandler", {
       "How R U Today?": 3,
     };
     // 點按後跳到下一頁
-    let nextButton = document.getElementById("next-page");
-    let textIndex = 0;
     nextButton.addEventListener("click", () => {
       if (textIndex < Object.keys(index2Text).length - 1) {
         let textDisplay = textEntity.getAttribute("text").value;
@@ -82,23 +103,25 @@ AFRAME.registerComponent("pagehandler", {
         // 廣播事件，觸發動畫
         videoEntity.emit("geo-plane-scaled");
       }
+      // 調整左右按鍵
+      nextPreBtnDisplay();
     });
     // 點按後跳到上一頁
-    let preButton = document.getElementById("previous-page");
     preButton.addEventListener("click", () => {
       if (textIndex < Object.keys(index2Text).length - 1) {
         let textDisplay = textEntity.getAttribute("text").value;
         // 找到目前文字的 index 後，把文字更新成前一個 index
         textIndex = text2Index[textDisplay];
         textEntity.setAttribute("text", "value", index2Text[textIndex - 1]);
-        textIndex--;
       } else {
         textEntity.setAttribute("visible", "true");
         videoEntity.setAttribute("visible", "false");
-        textIndex--;
         // 廣播事件，觸發動畫
         textEntity.emit("introduction-scaled");
       }
+      textIndex--;
+      // 調整左右按鍵
+      nextPreBtnDisplay();
     });
   },
 });
