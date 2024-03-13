@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./css/main.css";
 
@@ -18,16 +18,44 @@ const ARMode = () => {
   // 點按 menu 時的處裡函數
   const handleMenuItemClick = (item) => {
     console.log("Clicked:", item);
+
     // 說明頁面
     if (item === "操作說明") {
       // 中文
       navigate("/Instruction?ln=ch");
     }
+
+    // 地圖頁面
+    if (item === "AR 導覽地圖") {
+      console.log(arMapValue);
+    }
+
     // 點按後關閉選單
     setTimeout(() => setIsOpen(!isOpen), 50);
   };
 
   window.ARMap = "Hello from parent page!";
+  // 在 React 组件中使用 window.parent.ARMap 的值
+  const [arMapValue, setArMapValue] = useState(window.ARMap);
+
+  // 使用 useEffect() 監聽 window.parent.ARMap 的變化
+  useEffect(() => {
+    const handleParentArMapChange = (newMapValue) => {
+      setArMapValue(newMapValue);
+    };
+
+    // 監聽父窗口的消息是件，當街收到新的 ARMap 時，執行 handleParentArMapChange 函數
+    window.addEventListener("message", (event) => {
+      if (event.data && event.data.type === "updateArMapValue") {
+        handleParentArMapChange(event.data.payload);
+      }
+    });
+
+    return () => {
+      // 在组件卸载時移除事件監聽器
+      window.removeEventListener("message", handleParentArMapChange);
+    };
+  }, []);
 
   return (
     <>
@@ -65,28 +93,28 @@ const ARMode = () => {
                     className="menu-item"
                     onClick={() => handleMenuItemClick("圖像辨識")}
                   >
-                    <i class="fa-brands fa-instagram"></i>
+                    <i className="fa-brands fa-instagram"></i>
                     圖像辨識
                   </div>
                   <div
                     className="menu-item"
                     onClick={() => handleMenuItemClick("操作說明")}
                   >
-                    <i class="fa-regular fa-circle-question"></i>
+                    <i className="fa-regular fa-circle-question"></i>
                     操作說明
                   </div>
                   <div
                     className="menu-item"
                     onClick={() => handleMenuItemClick("AR 導覽地圖")}
                   >
-                    <i class="fa-regular fa-map"></i>
+                    <i className="fa-regular fa-map"></i>
                     AR 導覽地圖
                   </div>
                   <div
                     className="menu-item"
                     onClick={() => handleMenuItemClick("集點卡")}
                   >
-                    <i class="fa-solid fa-medal"></i>
+                    <i className="fa-solid fa-medal"></i>
                     集點卡
                   </div>
                 </div>

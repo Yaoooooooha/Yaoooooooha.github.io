@@ -1,8 +1,6 @@
 // 設定 a-frame
 AFRAME.registerComponent("pagehandler", {
   init: function () {
-    console.log(window.parent.ARMap);
-    console.log(123);
     let marker = this.el; // marker 物件
     let markerFound = false;
     let videoEntity = document.getElementById("geo-plane");
@@ -37,7 +35,7 @@ AFRAME.registerComponent("pagehandler", {
     marker.addEventListener(
       "markerFound",
       function () {
-        console.log("markerFound...");
+        console.log("markerFound...", marker.getAttribute("id"));
         markerFound = true;
         // 隱藏掃描提示
         scanHint.style.display = "none";
@@ -46,6 +44,34 @@ AFRAME.registerComponent("pagehandler", {
         // 廣播事件，觸發動畫
         videoEntity.emit("geo-plane-scaled");
         textEntity.emit("introduction-scaled");
+        // 判斷 Marker 來調整 Map
+        switch (marker.getAttribute("id")) {
+          case "marker1":
+            console.log(1);
+            window.parent.ARMap = 1;
+            console.log(window.parent.ARMap);
+            break;
+          case "marker2":
+            console.log(2);
+            window.parent.ARMap = 2;
+            console.log(window.parent.ARMap);
+            break;
+          case "marker3":
+            console.log(3);
+            window.parent.ARMap = 3;
+            break;
+          default:
+            // 其他情况的操作
+            break;
+        }
+        // 將消息發送到父窗口，並在父窗口中監聽消息
+        window.parent.postMessage(
+          {
+            type: "updateArMapValue",
+            payload: window.parent.ARMap,
+          },
+          "*"
+        );
       }.bind(this)
     );
 
