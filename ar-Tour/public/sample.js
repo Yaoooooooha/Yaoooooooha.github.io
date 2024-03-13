@@ -47,19 +47,20 @@ AFRAME.registerComponent("pagehandler", {
         // 判斷 Marker 來調整 Map
         switch (marker.getAttribute("id")) {
           case "marker1":
-            console.log(1);
-            window.parent.ARMap = 1;
-            console.log(window.parent.ARMap);
+            window.parent.ARMap =
+              "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/大港橋.png";
             break;
           case "marker2":
-            console.log(2);
-            window.parent.ARMap = 2;
-            console.log(window.parent.ARMap);
+            window.parent.ARMap =
+              "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/棧庫群.png";
             break;
           case "marker3":
-            console.log(3);
-            window.parent.ARMap = 3;
+            window.parent.ARMap =
+              "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/港史館.png";
             break;
+          case "marker4":
+            window.parent.ARMap =
+              "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/高雄港.png";
           default:
             // 其他情况的操作
             break;

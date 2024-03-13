@@ -9,15 +9,27 @@ const ARMode = () => {
   const deviceWidth = window.innerWidth;
   // 用於控制菜單的顯示和隱藏
   const [isOpen, setIsOpen] = useState(false);
+  // 用於控制地圖的顯示和隱藏
+  const [mapIsOpen, setMapIsOpen] = useState(false);
 
   // 點按 menu 按鈕後，切換顯示狀態
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  // 點按 map 按鈕後，切換顯示狀態
+  const toggleMap = () => {
+    setMapIsOpen(!mapIsOpen);
+  };
+
   // 點按 menu 時的處裡函數
   const handleMenuItemClick = (item) => {
     console.log("Clicked:", item);
+
+    // 點按後關閉選單
+    setIsOpen(!isOpen);
+    // 關閉所有開啟的功能
+    setMapIsOpen(false);
 
     // 說明頁面
     if (item === "操作說明") {
@@ -27,14 +39,12 @@ const ARMode = () => {
 
     // 地圖頁面
     if (item === "AR 導覽地圖") {
-      console.log(arMapValue);
+      toggleMap();
     }
-
-    // 點按後關閉選單
-    setTimeout(() => setIsOpen(!isOpen), 50);
   };
 
-  window.ARMap = "Hello from parent page!";
+  window.ARMap =
+    "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/高雄港.png";
   // 在 React 组件中使用 window.parent.ARMap 的值
   const [arMapValue, setArMapValue] = useState(window.ARMap);
 
@@ -85,10 +95,10 @@ const ARMode = () => {
                 <i className="fa-solid fa-bars"></i>
               </div>
 
-              {/* 根据菜单是否显示来渲染菜单内容 */}
+              {/* 根據菜單是否顯示來渲染菜單內容 */}
               {isOpen && (
                 <div className="popup-menu">
-                  {/* 菜单项 */}
+                  {/* 菜單項 */}
                   <div
                     className="menu-item"
                     onClick={() => handleMenuItemClick("圖像辨識")}
@@ -121,6 +131,15 @@ const ARMode = () => {
               )}
             </div>
           </div>
+          {/* map */}
+          {mapIsOpen && (
+            <div className="filter">
+              <div className="map">
+                <h2>AR 導覽地圖</h2>
+                <img src={arMapValue} alt="" />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>
