@@ -1,6 +1,6 @@
 @charset "UTF-8";
-html {
-  height: 100vh;
+* {
+  box-sizing: border-box;
 }
 
 .home-page {
@@ -132,4 +132,35 @@ html {
   justify-content: center;
   align-items: center;
   z-index: 5;
+}
+.ar-page .ar-container .ar-control-btn div.popup-menu {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 100%;
+  right: 1rem;
+  overflow: hidden;
+}
+.ar-page .ar-container .ar-control-btn div.popup-menu .menu-item {
+  width: 110px;
+  height: auto;
+  padding: 0.5rem;
+  border-bottom: 1px solid #a7a7a7;
+  font-size: 0.75rem;
+  justify-content: left;
+}
+.ar-page .ar-container .ar-control-btn div.popup-menu .menu-item:hover {
+  background-color: #f0f0f0;
+}
+.ar-page .ar-container .ar-control-btn div.popup-menu .menu-item i {
+  padding-right: 0.5rem;
 }/*# sourceMappingURL=main.css.map */

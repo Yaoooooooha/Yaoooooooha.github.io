@@ -1,5 +1,5 @@
-html {
-  height: 100vh;
+* {
+  box-sizing: border-box;
 }
 
 .home-page {
@@ -145,6 +145,41 @@ html {
         justify-content: center;
         align-items: center;
         z-index: 5;
+      }
+
+      // menu 設定
+      div.popup-menu {
+        background-color: rgb(255, 255, 255, 0.5);
+        border: 1px solid #ccc;
+        border-radius: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        height: fit-content;
+        width: fit-content;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 100%;
+        right: 1rem;
+        overflow: hidden;
+
+        // 彈出式 menu
+        .menu-item {
+          width: 110px;
+          height: auto;
+          padding: 0.5rem;
+          border-bottom: 1px solid #a7a7a7;
+          font-size: 0.75rem;
+          justify-content: left;
+
+          &:hover {
+            background-color: #f0f0f0;
+          }
+
+          i {
+            padding-right: 0.5rem;
+          }
+        }
       }
     }
   }

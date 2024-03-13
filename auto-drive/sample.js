@@ -5,9 +5,11 @@ AFRAME.registerComponent("pagehandler", {
     let markerFound = false;
     let videoEntity = document.getElementById("geo-plane");
     let textEntity = document.getElementById("introduction");
+    let textArr = [0, 1, 2, 3];
     let textIndex = 0; // 用來記錄目前所顯示的文字
     let preButton = document.getElementById("previous-page");
     let nextButton = document.getElementById("next-page");
+    let scanHint = document.getElementById("scan-hint");
 
     function nextPreBtnDisplay() {
       if (markerFound) {
@@ -30,6 +32,8 @@ AFRAME.registerComponent("pagehandler", {
       function () {
         console.log("markerFound...");
         markerFound = true;
+        // 隱藏掃描提示
+        scanHint.style.display = "none";
         // 調整左右按鍵
         nextPreBtnDisplay();
         // 廣播事件，觸發動畫
@@ -43,6 +47,8 @@ AFRAME.registerComponent("pagehandler", {
       function () {
         console.log("markerLost...");
         markerFound = false;
+        // 隱藏掃描提示
+        scanHint.style.display = "flex";
         // 調整左右按鍵
         nextPreBtnDisplay();
         // 暫停影片
@@ -76,27 +82,15 @@ AFRAME.registerComponent("pagehandler", {
       video.muted = !video.muted;
     });
 
-    // index 跟 text 的對照表
-    let index2Text = {
-      0: "Hello World!!",
-      1: "Have a good day!",
-      2: "My name is KY~",
-      3: "How R U Today?",
-    };
-    let text2Index = {
-      "Hello World!!": 0,
-      "Have a good day!": 1,
-      "My name is KY~": 2,
-      "How R U Today?": 3,
-    };
     // 點按後跳到下一頁
     nextButton.addEventListener("click", () => {
-      if (textIndex < Object.keys(index2Text).length - 1) {
-        let textDisplay = textEntity.getAttribute("text").value;
-        // 找到目前文字的 index 後，把文字更新成下一個 index
-        textIndex = text2Index[textDisplay];
-        textEntity.setAttribute("text", "value", index2Text[textIndex + 1]);
-        textIndex++;
+      textIndex++;
+      if (textIndex < textArr.length) {
+        // 把文字更新成下一個 index
+        let originalSrc = textEntity.getAttribute("material").src;
+        let src =
+          originalSrc.slice(0, originalSrc.length - 5) + textIndex + ".png";
+        textEntity.setAttribute("material", "src", src);
       } else {
         textEntity.setAttribute("visible", "false");
         videoEntity.setAttribute("visible", "true");
@@ -108,18 +102,22 @@ AFRAME.registerComponent("pagehandler", {
     });
     // 點按後跳到上一頁
     preButton.addEventListener("click", () => {
-      if (textIndex < Object.keys(index2Text).length - 1) {
-        let textDisplay = textEntity.getAttribute("text").value;
-        // 找到目前文字的 index 後，把文字更新成前一個 index
-        textIndex = text2Index[textDisplay];
-        textEntity.setAttribute("text", "value", index2Text[textIndex - 1]);
-      } else {
+      textIndex--;
+      if (textIndex < textArr.length) {
+        // 把文字更新成上一個 index
+        let originalSrc = textEntity.getAttribute("material").src;
+        let src =
+          originalSrc.slice(0, originalSrc.length - 5) + textIndex + ".png";
+        textEntity.setAttribute("material", "src", src);
+      }
+
+      if (textIndex === textArr.length - 1) {
         textEntity.setAttribute("visible", "true");
         videoEntity.setAttribute("visible", "false");
         // 廣播事件，觸發動畫
         textEntity.emit("introduction-scaled");
       }
-      textIndex--;
+
       // 調整左右按鍵
       nextPreBtnDisplay();
     });
