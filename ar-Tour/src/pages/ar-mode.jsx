@@ -18,12 +18,16 @@ const ARMode = () => {
   // 點按 menu 時的處裡函數
   const handleMenuItemClick = (item) => {
     console.log("Clicked:", item);
-    if (item === "Item 1") {
-      navigate("/Introduction");
+    // 說明頁面
+    if (item === "操作說明") {
+      // 中文
+      navigate("/Instruction?ln=ch");
     }
     // 點按後關閉選單
     setTimeout(() => setIsOpen(!isOpen), 50);
   };
+
+  window.ARMap = "Hello from parent page!";
 
   return (
     <>
@@ -59,28 +63,28 @@ const ARMode = () => {
                   {/* 菜单项 */}
                   <div
                     className="menu-item"
-                    onClick={() => handleMenuItemClick("Item 1")}
+                    onClick={() => handleMenuItemClick("圖像辨識")}
                   >
                     <i class="fa-brands fa-instagram"></i>
                     圖像辨識
                   </div>
                   <div
                     className="menu-item"
-                    onClick={() => handleMenuItemClick("Item 2")}
+                    onClick={() => handleMenuItemClick("操作說明")}
                   >
                     <i class="fa-regular fa-circle-question"></i>
                     操作說明
                   </div>
                   <div
                     className="menu-item"
-                    onClick={() => handleMenuItemClick("Item 3")}
+                    onClick={() => handleMenuItemClick("AR 導覽地圖")}
                   >
                     <i class="fa-regular fa-map"></i>
                     AR 導覽地圖
                   </div>
                   <div
                     className="menu-item"
-                    onClick={() => handleMenuItemClick("Item 3")}
+                    onClick={() => handleMenuItemClick("集點卡")}
                   >
                     <i class="fa-solid fa-medal"></i>
                     集點卡

@@ -19,7 +19,12 @@ AFRAME.registerComponent("pagehandler", {
         } else {
           preButton.style.display = "none";
         }
-        nextButton.style.display = "block";
+        // 在第最後一頁不顯示右按鍵
+        if (textIndex === textArr.length) {
+          nextButton.style.display = "none";
+        } else {
+          nextButton.style.display = "block";
+        }
       } else {
         // 隱藏左右按鍵
         nextButton.style.display = "none";

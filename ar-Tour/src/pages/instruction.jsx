@@ -21,7 +21,7 @@ const Instruction = () => {
       <HeaderComponent></HeaderComponent>
       <div className="instruction-page">
         {/* 上一頁 */}
-        <button onClick={() => navigate(-1)}>
+        <button onClick={() => navigate("/")}>
           <img src={IconBack} alt="" />
         </button>
         <div className="instruction-container">
