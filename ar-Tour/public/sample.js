@@ -174,10 +174,14 @@ AFRAME.registerComponent("pagehandler", {
           textEntity.setAttribute("material", "src", src);
         });
       } else {
-        // textEntity.setAttribute("visible", "false");
-        // videoEntity.setAttribute("visible", "true");
-        // // 廣播事件，觸發動畫
-        // videoEntity.emit("geo-plane-scaled");
+        // 顯示問題
+        Array.from(textEntitys).forEach((textEntity) => {
+          let originalSrc = textEntity.getAttribute("material").src;
+          let src = originalSrc.slice(0, originalSrc.length - 5) + "q0.png";
+          textEntity.setAttribute("material", "src", src);
+          // 觸發動畫
+          textEntity.emit("introduction-scaled");
+        });
       }
       // 調整左右按鍵
       markerFound = true; // 避免按鍵消失
