@@ -1,10 +1,14 @@
+// 不同 Marker 間共用的變數
+let lastLocation = "";
+let locationChanged = false;
+
 // 設定 a-frame
 AFRAME.registerComponent("pagehandler", {
   init: function () {
     let marker = this.el; // marker 物件
     let markerFound = false;
-    let videoEntity = document.getElementById("geo-plane");
-    let textEntity = document.getElementById("introduction");
+    // let videoEntity = document.getElementById("geo-plane");
+    let textEntitys = document.getElementsByClassName("introduction");
     let textArr = [0, 1, 2, 3];
     let textIndex = 0; // 用來記錄目前所顯示的文字
     let preButton = document.getElementById("previous-page");
@@ -39,28 +43,66 @@ AFRAME.registerComponent("pagehandler", {
         markerFound = true;
         // 隱藏掃描提示
         scanHint.style.display = "none";
+        // 廣播事件，觸發動畫
+        // videoEntity.emit("geo-plane-scaled");
+        Array.from(textEntitys).forEach((textEntity) => {
+          textEntity.emit("introduction-scaled");
+        });
+        // 判斷用戶是否移動到另一個點了
+        let currentLoaction = marker.getAttribute("id");
+        console.log(currentLoaction, lastLocation);
+        if (currentLoaction !== lastLocation) {
+          lastLocation = currentLoaction;
+          // 用戶移動到另一個點，重製 textIndex
+          textIndex = 0;
+          locationChanged = true;
+          console.log("location changed...");
+        }
         // 調整左右按鍵
         nextPreBtnDisplay();
-        // 廣播事件，觸發動畫
-        videoEntity.emit("geo-plane-scaled");
-        textEntity.emit("introduction-scaled");
-        // 判斷 Marker 來調整 Map
-        switch (marker.getAttribute("id")) {
+        // 依照現在位置來調整 Map 還有顯示的介紹文字
+        switch (currentLoaction) {
           case "marker1":
             window.parent.ARMap =
               "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/大港橋.png";
+            if (locationChanged) {
+              let src =
+                "https://Yaoooooooha.github.io/auto-drive/assets/image/0.png";
+              textEntitys[0].setAttribute("material", "src", src);
+              // 更新完成
+              locationChanged = false;
+            }
             break;
           case "marker2":
             window.parent.ARMap =
               "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/棧庫群.png";
+            if (locationChanged) {
+              let src = "";
+              textEntitys[1].setAttribute("material", "src", src);
+              // 更新完成
+              locationChanged = false;
+            }
             break;
           case "marker3":
             window.parent.ARMap =
               "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/港史館.png";
+            if (locationChanged) {
+              let src = "";
+              textEntitys[2].setAttribute("material", "src", src);
+              // 更新完成
+              locationChanged = false;
+            }
             break;
           case "marker4":
             window.parent.ARMap =
               "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/高雄港.png";
+            if (locationChanged) {
+              let src = "";
+              textEntitys[3].setAttribute("material", "src", src);
+              // 更新完成
+              locationChanged = false;
+            }
+            break;
           default:
             // 其他情况的操作
             break;
@@ -121,17 +163,20 @@ AFRAME.registerComponent("pagehandler", {
       textIndex++;
       if (textIndex < textArr.length) {
         // 把文字更新成下一個 index
-        let originalSrc = textEntity.getAttribute("material").src;
-        let src =
-          originalSrc.slice(0, originalSrc.length - 5) + textIndex + ".png";
-        textEntity.setAttribute("material", "src", src);
+        Array.from(textEntitys).forEach((textEntity) => {
+          let originalSrc = textEntity.getAttribute("material").src;
+          let src =
+            originalSrc.slice(0, originalSrc.length - 5) + textIndex + ".png";
+          textEntity.setAttribute("material", "src", src);
+        });
       } else {
-        textEntity.setAttribute("visible", "false");
-        videoEntity.setAttribute("visible", "true");
-        // 廣播事件，觸發動畫
-        videoEntity.emit("geo-plane-scaled");
+        // textEntity.setAttribute("visible", "false");
+        // videoEntity.setAttribute("visible", "true");
+        // // 廣播事件，觸發動畫
+        // videoEntity.emit("geo-plane-scaled");
       }
       // 調整左右按鍵
+      markerFound = true; // 避免按鍵消失
       nextPreBtnDisplay();
     });
     // 點按後跳到上一頁
@@ -139,20 +184,23 @@ AFRAME.registerComponent("pagehandler", {
       textIndex--;
       if (textIndex < textArr.length) {
         // 把文字更新成上一個 index
-        let originalSrc = textEntity.getAttribute("material").src;
-        let src =
-          originalSrc.slice(0, originalSrc.length - 5) + textIndex + ".png";
-        textEntity.setAttribute("material", "src", src);
+        Array.from(textEntitys).forEach((textEntity) => {
+          let originalSrc = textEntity.getAttribute("material").src;
+          let src =
+            originalSrc.slice(0, originalSrc.length - 5) + textIndex + ".png";
+          textEntity.setAttribute("material", "src", src);
+        });
       }
 
       if (textIndex === textArr.length - 1) {
-        textEntity.setAttribute("visible", "true");
-        videoEntity.setAttribute("visible", "false");
-        // 廣播事件，觸發動畫
-        textEntity.emit("introduction-scaled");
+        // textEntity.setAttribute("visible", "true");
+        // videoEntity.setAttribute("visible", "false");
+        // // 廣播事件，觸發動畫
+        // textEntity.emit("introduction-scaled");
       }
 
       // 調整左右按鍵
+      markerFound = true; // 避免按鍵消失
       nextPreBtnDisplay();
     });
   },
