@@ -1,6 +1,7 @@
 // 不同 Marker 間共用的變數
 let lastLocation = "";
 let locationChanged = false;
+let complete = false;
 
 // 設定 a-frame
 AFRAME.registerComponent("pagehandler", {
@@ -11,9 +12,12 @@ AFRAME.registerComponent("pagehandler", {
     let textEntitys = document.getElementsByClassName("introduction");
     let textArr = [0, 1, 2];
     let textIndex = 0; // 用來記錄目前所顯示的文字
+    let answerArr = [["B"], ["A"], ["A"], ["A"]];
     let preButton = document.getElementById("previous-page");
     let nextButton = document.getElementById("next-page");
     let scanHint = document.getElementById("scan-hint");
+    let answerAButton = document.getElementById("answer-a");
+    let answerBButton = document.getElementById("answer-b");
 
     function nextPreBtnDisplay() {
       if (markerFound) {
@@ -23,16 +27,35 @@ AFRAME.registerComponent("pagehandler", {
         } else {
           preButton.style.display = "none";
         }
-        // 在第最後一頁不顯示右按鍵
+        // 在最後一頁不顯示左右按鍵，改成顯示答題按鍵
         if (textIndex === textArr.length) {
           nextButton.style.display = "none";
+          preButton.style.display = "none";
+
+          answerAButton.style.display = "block";
+          answerBButton.style.display = "block";
         } else {
           nextButton.style.display = "block";
+
+          answerAButton.style.display = "none";
+          answerBButton.style.display = "none";
         }
       } else {
         // 隱藏左右按鍵
         nextButton.style.display = "none";
         preButton.style.display = "none";
+        // 隱藏答題按鍵
+        answerAButton.style.display = "none";
+        answerBButton.style.display = "none";
+      }
+
+      if (complete) {
+        // 隱藏左右按鍵
+        nextButton.style.display = "none";
+        preButton.style.display = "none";
+        // 隱藏答題按鍵
+        answerAButton.style.display = "none";
+        answerBButton.style.display = "none";
       }
     }
 
@@ -54,6 +77,7 @@ AFRAME.registerComponent("pagehandler", {
         if (currentLoaction !== lastLocation) {
           lastLocation = currentLoaction;
           locationChanged = true;
+          complete = false;
           // 用戶移動到另一個點，重製 textIndex
           textIndex = 0;
           console.log("location changed...");
@@ -64,37 +88,37 @@ AFRAME.registerComponent("pagehandler", {
         switch (currentLoaction) {
           case "marker1":
             window.parent.ARMap =
-              "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/大港橋.png";
+              "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/高雄港.png";
             if (locationChanged) {
               let src =
-                "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/大港橋/0.png";
+                "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/高雄港/0.png";
               textEntitys[0].setAttribute("material", "src", src);
             }
             break;
           case "marker2":
             window.parent.ARMap =
-              "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/棧庫群.png";
+              "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/大港橋.png";
             if (locationChanged) {
               let src =
-                "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/棧庫群/0.png";
+                "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/大港橋/0.png";
               textEntitys[1].setAttribute("material", "src", src);
             }
             break;
           case "marker3":
             window.parent.ARMap =
-              "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/港史館.png";
+              "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/棧庫群.png";
             if (locationChanged) {
               let src =
-                "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/港史館/0.png";
+                "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/棧庫群/0.png";
               textEntitys[2].setAttribute("material", "src", src);
             }
             break;
           case "marker4":
             window.parent.ARMap =
-              "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/高雄港.png";
+              "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/港史館.png";
             if (locationChanged) {
               let src =
-                "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/高雄港/0.png";
+                "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/港史館/0.png";
               textEntitys[3].setAttribute("material", "src", src);
             }
             break;
@@ -153,8 +177,7 @@ AFRAME.registerComponent("pagehandler", {
     //   video.muted = !video.muted;
     // });
 
-    // 點按後跳到下一頁
-    nextButton.addEventListener("click", () => {
+    function nextPage() {
       // 用戶移動到另一個點，重製 textIndex
       if (locationChanged) {
         textIndex = 0;
@@ -181,13 +204,18 @@ AFRAME.registerComponent("pagehandler", {
             originalSrc.slice(0, originalSrc.length - 5) + textIndex + ".png";
           console.log(src);
           textEntity.setAttribute("material", "src", src);
-          // 觸發動畫
+          // 廣播事件，觸發動畫
           textEntity.emit("introduction-scaled");
         });
       }
       // 調整左右按鍵
       markerFound = true; // 避免按鍵消失
       nextPreBtnDisplay();
+    }
+
+    // 點按後跳到下一頁
+    nextButton.addEventListener("click", () => {
+      nextPage();
     });
     // 點按後跳到上一頁
     preButton.addEventListener("click", () => {
@@ -203,15 +231,63 @@ AFRAME.registerComponent("pagehandler", {
       }
 
       if (textIndex === textArr.length - 1) {
-        // textEntity.setAttribute("visible", "true");
-        // videoEntity.setAttribute("visible", "false");
-        // // 廣播事件，觸發動畫
-        // textEntity.emit("introduction-scaled");
+        // 廣播事件，觸發動畫
+        Array.from(textEntitys).forEach((textEntity) => {
+          textEntity.emit("introduction-scaled");
+        });
       }
 
       // 調整左右按鍵
       markerFound = true; // 避免按鍵消失
       nextPreBtnDisplay();
+    });
+
+    // 回答問題
+    function checkAnswer(e, answer) {
+      switch (marker.id) {
+        case "marker1":
+          if (answer === answerArr[0][0]) {
+            nextPage();
+          } else {
+            // 答錯，顯示紅色
+            e.target.style.backgroundColor = "red";
+          }
+          break;
+        case "marker2":
+          if (answer === answerArr[1][0]) {
+            nextPage();
+          } else {
+            // 答錯，顯示紅色
+            e.target.style.backgroundColor = "red";
+          }
+          break;
+        case "marker3":
+          if (answer === answerArr[2][0]) {
+            nextPage();
+          } else {
+            // 答錯，顯示紅色
+            e.target.style.backgroundColor = "red";
+          }
+          break;
+        case "marker4":
+          if (answer === answerArr[3][0]) {
+            nextPage();
+          } else {
+            // 答錯，顯示紅色
+            e.target.style.backgroundColor = "red";
+          }
+          break;
+        default:
+          // 其他情况的操作
+          break;
+      }
+    }
+
+    answerAButton.addEventListener("click", (e) => {
+      checkAnswer(e, "A");
+    });
+    answerBButton.addEventListener("click", (e) => {
+      checkAnswer(e, "B");
     });
   },
 });

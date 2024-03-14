@@ -75,14 +75,18 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 5;
+  /* 避免點到 .control-button 子元素 */
+  pointer-events: none;
 }
-#previous-page {
+#previous-page,
+#answer-a {
   top: 90%;
   left: 15%;
   transform: translate(-50%, 0);
   display: none;
 }
-#next-page {
+#next-page,
+#answer-b {
   top: 90%;
   left: 85%;
   transform: translate(-50%, 0);
