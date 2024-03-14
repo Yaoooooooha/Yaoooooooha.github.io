@@ -178,7 +178,7 @@ AFRAME.registerComponent("pagehandler", {
         Array.from(textEntitys).forEach((textEntity) => {
           let originalSrc = textEntity.getAttribute("material").src;
           let src =
-            originalSrc.slice(0, originalSrc.length - 5) + "question/0.png";
+            originalSrc.slice(0, originalSrc.length - 5) + textIndex + ".png";
           console.log(src);
           textEntity.setAttribute("material", "src", src);
           // 觸發動畫
