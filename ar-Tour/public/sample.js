@@ -9,7 +9,7 @@ AFRAME.registerComponent("pagehandler", {
     let markerFound = false;
     // let videoEntity = document.getElementById("geo-plane");
     let textEntitys = document.getElementsByClassName("introduction");
-    let textArr = [0, 1, 2, 3];
+    let textArr = [0, 1, 2];
     let textIndex = 0; // 用來記錄目前所顯示的文字
     let preButton = document.getElementById("previous-page");
     let nextButton = document.getElementById("next-page");
@@ -53,9 +53,9 @@ AFRAME.registerComponent("pagehandler", {
         console.log(currentLoaction, lastLocation);
         if (currentLoaction !== lastLocation) {
           lastLocation = currentLoaction;
+          locationChanged = true;
           // 用戶移動到另一個點，重製 textIndex
           textIndex = 0;
-          locationChanged = true;
           console.log("location changed...");
         }
         // 調整左右按鍵
@@ -67,40 +67,35 @@ AFRAME.registerComponent("pagehandler", {
               "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/大港橋.png";
             if (locationChanged) {
               let src =
-                "https://Yaoooooooha.github.io/auto-drive/assets/image/0.png";
+                "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/大港橋/0.png";
               textEntitys[0].setAttribute("material", "src", src);
-              // 更新完成
-              locationChanged = false;
             }
             break;
           case "marker2":
             window.parent.ARMap =
               "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/棧庫群.png";
             if (locationChanged) {
-              let src = "";
+              let src =
+                "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/棧庫群/0.png";
               textEntitys[1].setAttribute("material", "src", src);
-              // 更新完成
-              locationChanged = false;
             }
             break;
           case "marker3":
             window.parent.ARMap =
               "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/港史館.png";
             if (locationChanged) {
-              let src = "";
+              let src =
+                "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/港史館/0.png";
               textEntitys[2].setAttribute("material", "src", src);
-              // 更新完成
-              locationChanged = false;
             }
             break;
           case "marker4":
             window.parent.ARMap =
               "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/map/高雄港.png";
             if (locationChanged) {
-              let src = "";
+              let src =
+                "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/高雄港/0.png";
               textEntitys[3].setAttribute("material", "src", src);
-              // 更新完成
-              locationChanged = false;
             }
             break;
           default:
@@ -160,6 +155,15 @@ AFRAME.registerComponent("pagehandler", {
 
     // 點按後跳到下一頁
     nextButton.addEventListener("click", () => {
+      // 用戶移動到另一個點，重製 textIndex
+      if (locationChanged) {
+        textIndex = 0;
+      }
+      // 最後一個 marker 也更新完畢，將 locationChanged 關閉，防止重複更新
+      if (locationChanged && marker.id === "marker4") {
+        locationChanged = false;
+      }
+
       textIndex++;
       if (textIndex < textArr.length) {
         // 把文字更新成下一個 index
