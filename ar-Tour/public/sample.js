@@ -202,7 +202,6 @@ AFRAME.registerComponent("pagehandler", {
           let originalSrc = textEntity.getAttribute("material").src;
           let src =
             originalSrc.slice(0, originalSrc.length - 5) + textIndex + ".png";
-          console.log(src);
           textEntity.setAttribute("material", "src", src);
           // 廣播事件，觸發動畫
           textEntity.emit("introduction-scaled");
@@ -244,10 +243,13 @@ AFRAME.registerComponent("pagehandler", {
 
     // 回答問題
     function checkAnswer(e, answer) {
-      switch (marker.id) {
+      switch (lastLocation) {
         case "marker1":
           if (answer === answerArr[0][0]) {
             nextPage();
+            complete = true;
+            // 在 client 紀錄該關卡已完成
+            localStorage.setItem("marker1Complete", true.toString());
           } else {
             // 答錯，顯示紅色
             e.target.style.backgroundColor = "red";
@@ -256,6 +258,8 @@ AFRAME.registerComponent("pagehandler", {
         case "marker2":
           if (answer === answerArr[1][0]) {
             nextPage();
+            complete = true;
+            localStorage.setItem("marker2Complete", true.toString());
           } else {
             // 答錯，顯示紅色
             e.target.style.backgroundColor = "red";
@@ -264,6 +268,8 @@ AFRAME.registerComponent("pagehandler", {
         case "marker3":
           if (answer === answerArr[2][0]) {
             nextPage();
+            complete = true;
+            localStorage.setItem("marker3Complete", true.toString());
           } else {
             // 答錯，顯示紅色
             e.target.style.backgroundColor = "red";
@@ -272,6 +278,8 @@ AFRAME.registerComponent("pagehandler", {
         case "marker4":
           if (answer === answerArr[3][0]) {
             nextPage();
+            complete = true;
+            localStorage.setItem("marker4Complete", true.toString());
           } else {
             // 答錯，顯示紅色
             e.target.style.backgroundColor = "red";
@@ -285,9 +293,19 @@ AFRAME.registerComponent("pagehandler", {
 
     answerAButton.addEventListener("click", (e) => {
       checkAnswer(e, "A");
+      // 把變紅的按鈕條回原本的顏色
+      if (complete) {
+        e.target.nextElementSibling.style.backgroundColor =
+          "rgb(255, 255, 255)";
+      }
     });
     answerBButton.addEventListener("click", (e) => {
       checkAnswer(e, "B");
+      // 把變紅的按鈕條回原本的顏色
+      if (complete) {
+        e.target.previousElementSibling.style.backgroundColor =
+          "rgb(255, 255, 255)";
+      }
     });
   },
 });
