@@ -7,6 +7,12 @@ const ARMode = () => {
 
   const deviceHeight = window.innerHeight;
   const deviceWidth = window.innerWidth;
+
+  let marker1Complete = localStorage.getItem("marker1Complete");
+  let marker2Complete = localStorage.getItem("marker2Complete");
+  let marker3Complete = localStorage.getItem("marker3Complete");
+  let marker4Complete = localStorage.getItem("marker4Complete");
+
   // 用於控制菜單的顯示和隱藏
   const [isOpen, setIsOpen] = useState(false);
   // 用於控制地圖的顯示和隱藏
@@ -144,7 +150,7 @@ const ARMode = () => {
             </div>
           </div>
 
-          {(mapIsOpen || rewardCardIsOpen)(
+          {(mapIsOpen || rewardCardIsOpen) && (
             <div className="filter">
               {/* map */}
               {mapIsOpen && (
@@ -156,8 +162,54 @@ const ARMode = () => {
               {/* reward-card */}
               {rewardCardIsOpen && (
                 <div className="reward-card">
-                  <h2>集點卡</h2>
-                  <img src="" alt="" />
+                  {/* marker1 */}
+                  {marker1Complete ? (
+                    <img
+                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker1-true.png"
+                      alt=""
+                    />
+                  ) : (
+                    <img
+                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker1-false.png"
+                      alt=""
+                    />
+                  )}
+                  {/* marker2 */}
+                  {marker2Complete ? (
+                    <img
+                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker2-true.png"
+                      alt=""
+                    />
+                  ) : (
+                    <img
+                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker2-false.png"
+                      alt=""
+                    />
+                  )}
+                  {/* marker3 */}
+                  {marker3Complete ? (
+                    <img
+                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker3-true.png"
+                      alt=""
+                    />
+                  ) : (
+                    <img
+                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker3-false.png"
+                      alt=""
+                    />
+                  )}
+                  {/* marker4 */}
+                  {marker4Complete ? (
+                    <img
+                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker4-true.png"
+                      alt=""
+                    />
+                  ) : (
+                    <img
+                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker4-false.png"
+                      alt=""
+                    />
+                  )}
                 </div>
               )}
             </div>
