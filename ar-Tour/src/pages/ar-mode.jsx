@@ -8,17 +8,37 @@ const ARMode = () => {
   const deviceHeight = window.innerHeight;
   const deviceWidth = window.innerWidth;
 
+  // 獲取儲存在 client 上的變數，來判斷用戶是否通過不同的關卡
   let marker1Complete = localStorage.getItem("marker1Complete");
   let marker2Complete = localStorage.getItem("marker2Complete");
   let marker3Complete = localStorage.getItem("marker3Complete");
   let marker4Complete = localStorage.getItem("marker4Complete");
 
+  // 假的最新消息內容
+  let news = {
+    title: "黃色小鴨重返高雄港！2024 Kaohsiung Wonderland 冬日遊樂園",
+    content:
+      "2024年1月27日㊅ ►2月25日㊐ ❥ 愛河灣： 2隻小鴨，萌度加倍 ❥ 16至18號碼頭：大型充氣藝術裝置作品、遊樂設施、藝文表演與街頭藝人、美味餐飲市集 輕軌│真愛碼頭站、旅運中心站 棧貳庫/大港倉🐤消費滿額送你看黃色小鴨🐤 黃色小鴨展期限定 𝟭月𝟮𝟳日㊅ ►𝟮月𝟮𝟱日㊐ 棧貳庫/大港倉🐤當日累積消費 滿2,000元🐤送你看黃色小鴨🐤 凡加入棧貳庫/大港倉LINE@會員好友，憑棧貳庫或大港倉全館當日累積消費滿2,000元發票， 即贈高雄市輪船公司「金棧遊港」船票1張、累積消費滿4,000元可再加贈1張。(金棧遊港船票價值300元)。 ※每人每日最多限兌換2張。 ※棧貳庫/大港倉，每日限量各20份。 活動內容 https://t.ly/lPp4B",
+  };
+
+  // 用於控制最新消息的顯示和隱藏
+  const [lastNewsIsOpen, setLastNewsIsOpen] = useState(true);
   // 用於控制菜單的顯示和隱藏
   const [isOpen, setIsOpen] = useState(false);
   // 用於控制地圖的顯示和隱藏
   const [mapIsOpen, setMapIsOpen] = useState(false);
   // 用於集點卡的顯示和隱藏
   const [rewardCardIsOpen, setRewardCardIsOpen] = useState(false);
+
+  // 點按 last-news 按鈕後，切換顯示狀態
+  const togglelastNews = () => {
+    setLastNewsIsOpen(!lastNewsIsOpen);
+    // 點按後關閉選單
+    setIsOpen(false);
+    // 關閉所有開啟的功能
+    setMapIsOpen(false);
+    setRewardCardIsOpen(false);
+  };
 
   // 點按 menu 按鈕後，切換顯示狀態
   const toggleMenu = () => {
@@ -44,6 +64,7 @@ const ARMode = () => {
     // 關閉所有開啟的功能
     setMapIsOpen(false);
     setRewardCardIsOpen(false);
+    setLastNewsIsOpen(false);
 
     // 說明頁面
     if (item === "操作說明") {
@@ -63,7 +84,7 @@ const ARMode = () => {
   };
 
   const handleMapAndRewardCardClose = () => {
-    // 點案任何地方，關閉地圖跟集點卡
+    // 點按任何地方，關閉地圖跟集點卡
     setMapIsOpen(false);
     setRewardCardIsOpen(false);
   };
@@ -107,7 +128,11 @@ const ARMode = () => {
 
           <div className="ar-control-btn">
             {/* 互動按鈕 */}
-            <div className="control-button" id="last-news">
+            <div
+              className="control-button"
+              id="last-news"
+              onClick={togglelastNews}
+            >
               <div>
                 <i className="fa-regular fa-bell"></i>
               </div>
@@ -157,7 +182,7 @@ const ARMode = () => {
             </div>
           </div>
 
-          {(mapIsOpen || rewardCardIsOpen) && (
+          {(lastNewsIsOpen || mapIsOpen || rewardCardIsOpen) && (
             <div className="filter" onClick={handleMapAndRewardCardClose}>
               {/* map */}
               {mapIsOpen && (
@@ -221,6 +246,22 @@ const ARMode = () => {
                       />
                     )}
                   </div>
+                </div>
+              )}
+              {/* last-news */}
+              {lastNewsIsOpen && (
+                <div className="last-news">
+                  <div className="header">
+                    <h2>最新消息</h2>
+                  </div>
+                  <div className="news">
+                    <h3>{news.title}</h3>
+                    <div className="content">
+                      <div className="img"></div>
+                      <div className="words">{news.content}</div>
+                    </div>
+                  </div>
+                  <div className="btns"></div>
                 </div>
               )}
             </div>
