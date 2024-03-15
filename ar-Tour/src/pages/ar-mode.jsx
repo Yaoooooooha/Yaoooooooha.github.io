@@ -162,54 +162,58 @@ const ARMode = () => {
               {/* reward-card */}
               {rewardCardIsOpen && (
                 <div className="reward-card">
-                  {/* marker1 */}
-                  {marker1Complete ? (
-                    <img
-                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker1-true.png"
-                      alt=""
-                    />
-                  ) : (
-                    <img
-                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker1-false.png"
-                      alt=""
-                    />
-                  )}
-                  {/* marker2 */}
-                  {marker2Complete ? (
-                    <img
-                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker2-true.png"
-                      alt=""
-                    />
-                  ) : (
-                    <img
-                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker2-false.png"
-                      alt=""
-                    />
-                  )}
-                  {/* marker3 */}
-                  {marker3Complete ? (
-                    <img
-                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker3-true.png"
-                      alt=""
-                    />
-                  ) : (
-                    <img
-                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker3-false.png"
-                      alt=""
-                    />
-                  )}
-                  {/* marker4 */}
-                  {marker4Complete ? (
-                    <img
-                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker4-true.png"
-                      alt=""
-                    />
-                  ) : (
-                    <img
-                      src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker4-false.png"
-                      alt=""
-                    />
-                  )}
+                  <div className="row1">
+                    {/* marker1 */}
+                    {marker1Complete ? (
+                      <img
+                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker1-true.png"
+                        alt=""
+                      />
+                    ) : (
+                      <img
+                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker1-false.png"
+                        alt=""
+                      />
+                    )}
+                    {/* marker2 */}
+                    {marker2Complete ? (
+                      <img
+                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker2-true.png"
+                        alt=""
+                      />
+                    ) : (
+                      <img
+                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker2-false.png"
+                        alt=""
+                      />
+                    )}
+                  </div>
+                  <div className="row2">
+                    {/* marker3 */}
+                    {marker3Complete ? (
+                      <img
+                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker3-true.png"
+                        alt=""
+                      />
+                    ) : (
+                      <img
+                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker3-false.png"
+                        alt=""
+                      />
+                    )}
+                    {/* marker4 */}
+                    {marker4Complete ? (
+                      <img
+                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker4-true.png"
+                        alt=""
+                      />
+                    ) : (
+                      <img
+                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker4-false.png"
+                        alt=""
+                      />
+                    )}
+                  </div>
                 </div>
               )}
             </div>
