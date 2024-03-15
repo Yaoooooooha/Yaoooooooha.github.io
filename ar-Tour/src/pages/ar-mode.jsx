@@ -11,6 +11,8 @@ const ARMode = () => {
   const [isOpen, setIsOpen] = useState(false);
   // 用於控制地圖的顯示和隱藏
   const [mapIsOpen, setMapIsOpen] = useState(false);
+  // 用於集點卡的顯示和隱藏
+  const [rewardCardIsOpen, setRewardCardIsOpen] = useState(false);
 
   // 點按 menu 按鈕後，切換顯示狀態
   const toggleMenu = () => {
@@ -20,6 +22,11 @@ const ARMode = () => {
   // 點按 map 按鈕後，切換顯示狀態
   const toggleMap = () => {
     setMapIsOpen(!mapIsOpen);
+  };
+
+  // 點按 reward-card 按鈕後，切換顯示狀態
+  const toggleRewardCard = () => {
+    setRewardCardIsOpen(!rewardCardIsOpen);
   };
 
   // 點按 menu 時的處裡函數
@@ -40,6 +47,11 @@ const ARMode = () => {
     // 地圖頁面
     if (item === "AR 導覽地圖") {
       toggleMap();
+    }
+
+    // 集點卡頁面
+    if (item === "集點卡") {
+      toggleRewardCard();
     }
   };
 
@@ -131,13 +143,23 @@ const ARMode = () => {
               )}
             </div>
           </div>
-          {/* map */}
-          {mapIsOpen && (
+
+          {(mapIsOpen || rewardCardIsOpen)(
             <div className="filter">
-              <div className="map">
-                <h2>AR 導覽地圖</h2>
-                <img src={arMapValue} alt="" />
-              </div>
+              {/* map */}
+              {mapIsOpen && (
+                <div className="map">
+                  <h2>AR 導覽地圖</h2>
+                  <img src={arMapValue} alt="" />
+                </div>
+              )}
+              {/* reward-card */}
+              {rewardCardIsOpen && (
+                <div className="reward-card">
+                  <h2>集點卡</h2>
+                  <img src="" alt="" />
+                </div>
+              )}
             </div>
           )}
         </div>

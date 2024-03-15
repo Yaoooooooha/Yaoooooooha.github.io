@@ -190,16 +190,17 @@
       position: fixed;
       top: 0;
 
-      .map {
+      h2 {
+        font-size: 1.5rem;
+        color: aliceblue;
+      }
+
+      .map,
+      .reward-card {
         width: 100%;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-
-        h2 {
-          font-size: 1.5rem;
-          color: aliceblue;
-        }
 
         img {
           width: 80%;
