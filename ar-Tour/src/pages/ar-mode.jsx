@@ -13,6 +13,23 @@ const ARMode = () => {
   let marker2Complete = localStorage.getItem("marker2Complete");
   let marker3Complete = localStorage.getItem("marker3Complete");
   let marker4Complete = localStorage.getItem("marker4Complete");
+  // 不同關卡的徽章
+  const marker1True =
+    "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker1-true.png";
+  const marker1False =
+    "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker1-false.png";
+  const marker2True =
+    "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker2-true.png";
+  const marker2False =
+    "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker2-false.png";
+  const marker3True =
+    "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker3-true.png";
+  const marker3False =
+    "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker3-false.png";
+  const marker4True =
+    "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker4-true.png";
+  const marker4False =
+    "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker4-false.png";
 
   // 假的最新消息內容
   let news = {
@@ -20,6 +37,11 @@ const ARMode = () => {
     content:
       "2024年1月27日㊅ ►2月25日㊐ ❥ 愛河灣： 2隻小鴨，萌度加倍 ❥ 16至18號碼頭：大型充氣藝術裝置作品、遊樂設施、藝文表演與街頭藝人、美味餐飲市集 輕軌│真愛碼頭站、旅運中心站 棧貳庫/大港倉🐤消費滿額送你看黃色小鴨🐤 黃色小鴨展期限定 𝟭月𝟮𝟳日㊅ ►𝟮月𝟮𝟱日㊐ 棧貳庫/大港倉🐤當日累積消費 滿2,000元🐤送你看黃色小鴨🐤 凡加入棧貳庫/大港倉LINE@會員好友，憑棧貳庫或大港倉全館當日累積消費滿2,000元發票， 即贈高雄市輪船公司「金棧遊港」船票1張、累積消費滿4,000元可再加贈1張。(金棧遊港船票價值300元)。 ※每人每日最多限兌換2張。 ※棧貳庫/大港倉，每日限量各20份。 活動內容 https://t.ly/lPp4B",
   };
+  // 最新消息的切換按鈕
+  const btnNext =
+    "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/last-news/btn-next.png";
+  const btnPrevious =
+    "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/last-news/btn-previous.png";
 
   // 用於控制最新消息的顯示和隱藏
   const [lastNewsIsOpen, setLastNewsIsOpen] = useState(true);
@@ -197,53 +219,29 @@ const ARMode = () => {
                   <div className="row row1">
                     {/* marker1 */}
                     {marker1Complete ? (
-                      <img
-                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker1-true.png"
-                        alt=""
-                      />
+                      <img src={marker1True} alt="" />
                     ) : (
-                      <img
-                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker1-false.png"
-                        alt=""
-                      />
+                      <img src={marker1False} alt="" />
                     )}
                     {/* marker2 */}
                     {marker2Complete ? (
-                      <img
-                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker2-true.png"
-                        alt=""
-                      />
+                      <img src={marker2True} alt="" />
                     ) : (
-                      <img
-                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker2-false.png"
-                        alt=""
-                      />
+                      <img src={marker2False} alt="" />
                     )}
                   </div>
                   <div className="row row2">
                     {/* marker3 */}
                     {marker3Complete ? (
-                      <img
-                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker3-true.png"
-                        alt=""
-                      />
+                      <img src={marker3True} alt="" />
                     ) : (
-                      <img
-                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker3-false.png"
-                        alt=""
-                      />
+                      <img src={marker3False} alt="" />
                     )}
                     {/* marker4 */}
                     {marker4Complete ? (
-                      <img
-                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker4-true.png"
-                        alt=""
-                      />
+                      <img src={marker4True} alt="" />
                     ) : (
-                      <img
-                        src="https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/reward-card/marker4-false.png"
-                        alt=""
-                      />
+                      <img src={marker4False} alt="" />
                     )}
                   </div>
                 </div>
@@ -261,7 +259,10 @@ const ARMode = () => {
                       <div className="words">{news.content}</div>
                     </div>
                   </div>
-                  <div className="btns"></div>
+                  <div className="btns">
+                    <img src={btnPrevious} alt="" />
+                    <img src={btnNext} alt="" />
+                  </div>
                 </div>
               )}
             </div>
