@@ -216,7 +216,6 @@
   width: 80vw;
   height: 70vh;
   background-color: white;
-  border: 1px solid red;
   border-radius: 2rem;
   position: absolute;
   top: 50%;
@@ -239,12 +238,22 @@
   background-color: #575757;
 }
 .ar-page .ar-container .filter .last-news .header img {
-  width: 40vw;
+  height: inherit;
+}
+.ar-page .ar-container .filter .last-news h3 {
+  font-size: 1.1rem;
+  padding: 0;
+  margin: 0;
 }
 .ar-page .ar-container .filter .last-news .news {
   width: 90%;
-  height: 55vh;
+  height: 45vh;
   flex-direction: column;
+  border: 1px solid rgba(78, 78, 78, 0.493);
+  border-radius: 1rem;
+}
+.ar-page .ar-container .filter .last-news .news .img {
+  background-image: none;
 }
 .ar-page .ar-container .filter .last-news .btns {
   width: 90%;
@@ -252,5 +261,5 @@
 }
 .ar-page .ar-container .filter .last-news .btns img {
   width: 37.5vw;
-  padding: 0.5rem;
+  padding: 0 0.5rem;
 }/*# sourceMappingURL=main.css.map */

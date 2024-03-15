@@ -254,10 +254,15 @@ const ARMode = () => {
                   <div className="header">
                     <img src={lastNews} alt="" />
                   </div>
+                  <h3>{news.title}</h3>
                   <div className="news">
-                    <h3>{news.title}</h3>
                     <div className="content">
-                      <div className="img"></div>
+                      <div
+                        className="img"
+                        style={{
+                          backgroundImage: `url(${news.backgroundImages[0]})`,
+                        }}
+                      ></div>
                       <div className="words">{news.content}</div>
                     </div>
                   </div>

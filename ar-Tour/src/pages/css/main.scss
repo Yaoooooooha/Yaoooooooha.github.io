@@ -245,7 +245,6 @@
         width: 80vw;
         height: 70vh;
         background-color: white;
-        border: 1px solid red;
         border-radius: 2rem;
         position: absolute;
         top: 50%;
@@ -269,14 +268,26 @@
           background-color: #575757;
 
           img {
-            width: 40vw;
+            height: inherit;
           }
+        }
+
+        h3 {
+          font-size: 1.1rem;
+          padding: 0;
+          margin: 0;
         }
 
         .news {
           width: 90%;
-          height: 55vh;
+          height: 45vh;
           flex-direction: column;
+          border: 1px solid rgba(78, 78, 78, 0.493);
+          border-radius: 1rem;
+
+          .img {
+            background-image: none;
+          }
         }
 
         .btns {
@@ -285,7 +296,7 @@
 
           img {
             width: 37.5vw;
-            padding: 0.5rem;
+            padding: 0 0.5rem;
           }
         }
       }
