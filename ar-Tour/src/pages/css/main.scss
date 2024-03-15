@@ -270,6 +270,12 @@
           img {
             height: inherit;
           }
+
+          img.btn-close {
+            position: absolute;
+            right: 1rem;
+            height: 1rem;
+          }
         }
 
         h3 {
@@ -284,7 +290,6 @@
           border: 1px solid rgba(78, 78, 78, 0.493);
           border-radius: 0.75rem;
           flex-direction: column;
-          pointer-events: none;
 
           swiper-container {
             width: 100%;

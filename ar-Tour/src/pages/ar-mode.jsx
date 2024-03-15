@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "swiper/element/bundle";
-import "swiper/element/css/autoplay";
 import "./css/main.css";
 
 register();
@@ -48,6 +47,8 @@ const ARMode = () => {
   // 最新消息中的照片
   const lastNews =
     "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/last-news/last-news.png";
+  const btnClose =
+    "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/last-news/btn-close.png";
   const btnNext =
     "https://Yaoooooooha.github.io/ar-Tour/src/assets/images/ar-mode/last-news/btn-next.png";
   const btnPrevious =
@@ -85,6 +86,12 @@ const ARMode = () => {
     showScanHint();
   };
 
+  const handleLasrNewsClose = () => {
+    setLastNewsIsOpen(false);
+    // 重新顯示 scan-hint
+    showScanHint();
+  };
+
   // 點按 menu 按鈕後，切換顯示狀態
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -115,14 +122,6 @@ const ARMode = () => {
     const iframeDocument = iframeRef.current.contentDocument;
     if (iframeDocument) {
       const iframeElement = iframeDocument.getElementById("scan-hint");
-      console.log(iframeElement);
-      // 在其他功能開啟時，不顯示 scan-hint，關閉時顯示
-      if (iframeElement.style.opacity == 0.5) {
-        iframeElement.style.opacity = 0;
-      } else {
-        iframeElement.style.opacity = 0.5;
-      }
-
       if (item === "圖像辨識") {
         iframeElement.style.opacity = 0.5;
       }
@@ -137,11 +136,31 @@ const ARMode = () => {
     // 地圖頁面
     if (item === "AR 導覽地圖") {
       toggleMap();
+
+      if (iframeDocument) {
+        const iframeElement = iframeDocument.getElementById("scan-hint");
+        // 在地圖開啟時，不顯示 scan-hint，關閉時顯示
+        if (!mapIsOpen) {
+          iframeElement.style.opacity = 0;
+        } else {
+          iframeElement.style.opacity = 0.5;
+        }
+      }
     }
 
     // 集點卡頁面
     if (item === "集點卡") {
       toggleRewardCard();
+
+      if (iframeDocument) {
+        const iframeElement = iframeDocument.getElementById("scan-hint");
+        // 在集點卡開啟時，不顯示 scan-hint，關閉時顯示
+        if (!rewardCardIsOpen) {
+          iframeElement.style.opacity = 0;
+        } else {
+          iframeElement.style.opacity = 0.5;
+        }
+      }
     }
   };
 
@@ -294,7 +313,12 @@ const ARMode = () => {
                 <div className="last-news">
                   <div className="header">
                     <img src={lastNews} alt="" />
-                    <i class="fa-regular fa-x"></i>
+                    <img
+                      className="btn-close"
+                      src={btnClose}
+                      alt=""
+                      onClick={handleLasrNewsClose}
+                    />
                   </div>
                   <h3>{news.title}</h3>
                   <div className="news">
