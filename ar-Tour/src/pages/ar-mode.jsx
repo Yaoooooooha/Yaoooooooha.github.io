@@ -43,6 +43,7 @@ const ARMode = () => {
     setIsOpen(!isOpen);
     // 關閉所有開啟的功能
     setMapIsOpen(false);
+    setRewardCardIsOpen(false);
 
     // 說明頁面
     if (item === "操作說明") {
@@ -59,6 +60,12 @@ const ARMode = () => {
     if (item === "集點卡") {
       toggleRewardCard();
     }
+  };
+
+  const handleMapAndRewardCardClose = () => {
+    // 點案任何地方，關閉地圖跟集點卡
+    setMapIsOpen(false);
+    setRewardCardIsOpen(false);
   };
 
   window.ARMap =
@@ -151,7 +158,7 @@ const ARMode = () => {
           </div>
 
           {(mapIsOpen || rewardCardIsOpen) && (
-            <div className="filter">
+            <div className="filter" onClick={handleMapAndRewardCardClose}>
               {/* map */}
               {mapIsOpen && (
                 <div className="map">
@@ -162,7 +169,7 @@ const ARMode = () => {
               {/* reward-card */}
               {rewardCardIsOpen && (
                 <div className="reward-card">
-                  <div className="row1">
+                  <div className="row row1">
                     {/* marker1 */}
                     {marker1Complete ? (
                       <img
@@ -188,7 +195,7 @@ const ARMode = () => {
                       />
                     )}
                   </div>
-                  <div className="row2">
+                  <div className="row row2">
                     {/* marker3 */}
                     {marker3Complete ? (
                       <img
